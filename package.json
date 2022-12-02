@@ -1,0 +1,19 @@
+{
+  "name": "exam-web-technologies",
+  "version": "1.0.0",
+  "description": "API for recipes",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mobak88/recipe-node-app.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mobak88/recipe-node-app/issues"
+  },
+  "homepage": "https://github.com/mobak88/recipe-node-app#readme"
+}
