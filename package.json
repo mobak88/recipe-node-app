@@ -4,7 +4,8 @@
   "description": "API for recipes",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "repository": {
     "type": "git",
