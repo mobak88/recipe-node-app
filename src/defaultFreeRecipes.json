@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Easy Pancakes",
+    "category": "free",
+    "ingredients": [
+      { "fk_recipe": 1, "entry": "100g plain flour", "type": "flour" },
+      { "fk_recipe": 1, "entry": "2 large eggs", "type": "egg" },
+      { "fk_recipe": 1, "entry": "300ml milk", "type": "milk" },
+      {
+        "fk_recipe": 1,
+        "entry": "1 tbsp sunflower oil",
+        "type": "sunflour oil"
+      }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 1,
+        "text": "Put 100g plain flour, 2 large eggs, 300ml milk, 1 tbsp sunflower or vegetable oil and a pinch of salt into a bowl"
+      },
+      {
+        "fk_recipe": 1,
+        "text": "Set aside for 30 mins to rest if you have time, or start cooking straight away."
+      },
+      {
+        "fk_recipe": 1,
+        "text": "Set a medium frying pan or crêpe pan over a medium heat and carefully wipe it with some oiled kitchen paper."
+      },
+      {
+        "fk_recipe": 1,
+        "text": "When hot, cook your pancakes for 1 min on each side until golden, keeping them warm in a low oven as you go."
+      },
+      {
+        "fk_recipe": 1,
+        "text": "Serve with lemon wedges and caster sugar, or your favourite filling. Once cold, you can layer the pancakes between baking"
+      }
+    ]
+  },
+  {
+    "name": "Sourdough Bread",
+    "category": "free",
+    "ingredients": [
+      { "fk_recipe": 2, "entry": "3 cups flour", "type": "flour" },
+      { "fk_recipe": 2, "entry": "¼ tsp instant yeast", "type": "yeast" },
+      { "fk_recipe": 2, "entry": "1 tsp salt", "type": "salt" },
+      { "fk_recipe": 2, "entry": "½ cups water", "type": "water" }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 2,
+        "text": "Combine all the ingredients in a large bowl. Mix with a wooden spoon."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "After 12 to 20 hours, your dough will smell like beer and appear bubbly. Using wet hands, place dough on a lightly floured surface."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "Half an hour before the second rise is finished, get ready by setting your oven to 450 degrees and putting your empty covered pot inside to heat up."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "When hot, cook your pancakes for 1 min on each side until golden, keeping them warm in a low oven as you go."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "Remove hot pot from the oven. Depending on the material of your pot, you may need to grease it with butter."
+      }
+    ]
+  },
+  {
+    "name": "Chicken soup",
+    "category": "free",
+    "ingredients": [
+      { "fk_recipe": 3, "entry": "1 diced, fresh onion", "type": "onion" },
+      {
+        "fk_recipe": 3,
+        "entry": "1 cup of cooked, diced chicken",
+        "type": "chicken"
+      },
+      {
+        "fk_recipe": 3,
+        "entry": "1 box of chicken broth",
+        "type": "chicken broth"
+      },
+      { "fk_recipe": 3, "entry": "1 cup of egg noodles", "type": "egg noodles" }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 3,
+        "text": "Start by simply sautéing your onion it a bit of olive oil."
+      },
+      {
+        "fk_recipe": 3,
+        "text": "Add chicken, vegetables and broth and bring to a boil."
+      },
+      {
+        "fk_recipe": 3,
+        "text": "Reduce the heat and simmer for about 10 minutes then add noodles and cook according to their package directions or until al dente."
+      }
+    ]
+  }
+]
