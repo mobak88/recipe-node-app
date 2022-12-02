@@ -1,4 +1,4 @@
-# Purchase tracking system
+# Recipe system API
 
 API for recipe system
 
