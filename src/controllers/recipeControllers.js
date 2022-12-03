@@ -22,6 +22,7 @@ exports.getAllRecipes = ('/recipes', async (req, res) => {
         res.json(recipes.rows);
     } catch (err) {
         console.error(err.message);
+        res.status(500).send('Server Error');
     }
 });
 
@@ -48,6 +49,7 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
         res.json(data);
     } catch (err) {
         console.error(err.message);
+        res.status(500).send('Server Error');
     }
 });
 
@@ -74,6 +76,7 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
         res.json(data);
     } catch (err) {
         console.error(err.message);
+        res.status(500).send('Server Error');
     }
 });
 
@@ -92,5 +95,6 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
         res.json(recipe.rows[0]);
     } catch (err) {
         console.error(err.message);
+        res.status(500).send('Server Error');
     }
 });
