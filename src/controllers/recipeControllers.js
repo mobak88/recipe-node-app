@@ -1,7 +1,7 @@
 /* HTTP requests exported for recipes */
 const pool = require('../db');
 const errorHandlers = require('./../utils/errorHandlers');
-const { structureRecipe } = require('./../utils/structurerecipe');
+const { structureRecipe } = require('../utils/structureRecipe');
 
 const free = 'free';
 const premium = 'premium';
@@ -69,39 +69,19 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
     }
 });
 
-// Create default recipes, if default recipes do not exist
-exports.createDefaultRecipes = ('/recipes/create/default', async (req, res) => {
+// Get single step
+exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
     try {
-        const defaultFreeRecipes = require('./../defaultRecipes.json');
-        const recipes = await pool.query('SELECT * FROM recipe');
+        const { recipe_id, step_id } = req.params;
 
-        if (recipes.rows.length === 6) {
-            return res.json('Default recipes alredy exists');
-        } else {
-            for (let index = 0; index < defaultFreeRecipes.length; index++) {
-                await pool.query(
-                    'INSERT INTO recipe (recipe_name, category) VALUES($1, $2) RETURNING *',
-                    [defaultFreeRecipes[index].name, defaultFreeRecipes[index].category]
-                );
+        errorHandlers.checkIdIsNumber(recipe_id, res);
+        errorHandlers.checkIdIsNumber(step_id, res);
 
+        const recipe = await pool.query('SELECT step_id, step_text FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3 ', [recipe_id, step_id, free]);
 
-                for (let i = 0; i < defaultFreeRecipes[index].ingredients.length; i++) {
-                    await pool.query(
-                        'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
-                        [defaultFreeRecipes[index].ingredients[i].fk_recipe, defaultFreeRecipes[index].ingredients[i].entry, defaultFreeRecipes[index].ingredients[i].type]
-                    );
-                }
+        errorHandlers.checkIdExists(recipe, res);
 
-                for (let i = 0; i < defaultFreeRecipes[index].steps.length; i++) {
-                    await pool.query(
-                        'INSERT INTO step (fk_recipe, step_text) VALUES($1, $2) RETURNING *',
-                        [defaultFreeRecipes[index].steps[i].fk_recipe, defaultFreeRecipes[index].steps[i].text]
-                    );
-                }
-            }
-        }
-
-        res.json(defaultFreeRecipes);
+        res.json(recipe.rows[0]);
     } catch (err) {
         console.error(err.message);
     }

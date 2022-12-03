@@ -6,7 +6,7 @@
  * Returns recipe name, ingredients and steps as an array of objects 
  * */
 
-const { filterUniqueItems } = require('./../utils/filterUniqueItems');
+const { filterUniqueItems } = require('./filterUniqueItems');
 
 exports.structureRecipe = (recipe) => {
     const recipeName = recipe[0].recipe_name;

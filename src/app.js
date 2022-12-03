@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+const { createDefaultRecipes } = require('./middleware/createDefeaultRecipes');
+
 const recipeRouter = require('./routes/recipeRoutes');
 
 const url = process.env.URL || 'localhost';
@@ -13,6 +15,8 @@ app.use(cors());
 
 // Built-in middleware function in Express, parses incoming requests with JSON payloads
 app.use(express.json()); // Access to req.body
+
+app.use(createDefaultRecipes);
 
 // Imported routes to keep app file as small as possible
 app.use('/', recipeRouter);

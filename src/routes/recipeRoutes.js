@@ -1,3 +1,4 @@
+/* Routes exported for the aplication */
 const express = require('express');
 const recipeController = require('./../controllers/recipeControllers');
 const router = express.Router();
@@ -15,7 +16,7 @@ router
     .get(recipeController.getAllRecipeDetails);
 
 router
-    .route('/recipes/create/default')
-    .get(recipeController.createDefaultRecipes);
+    .route('/recipes/:recipe_id/:step_id')
+    .get(recipeController.getSingleStep);
 
 module.exports = router;
