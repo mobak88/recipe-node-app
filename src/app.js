@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 const pool = require('./db');
 
-const defaultFreeRecipes = require('./defaultFreeRecipes.json');
+const defaultFreeRecipes = require('./defaultRecipes.json');
 
 const url = process.env.URL || 'localhost';
 const port = process.env.PORT || 8080;
@@ -15,23 +15,29 @@ app.use(express.json()); // Access to req.body
 
 app.get('/recipes/create/default', async (req, res) => {
     try {
-        /* for (let i = 0; i < defaultFreeRecipes.length; i++) {
+        for (let index = 0; index < defaultFreeRecipes.length; index++) {
             await pool.query(
                 'INSERT INTO recipe (recipe_name, category) VALUES($1, $2) RETURNING *',
-                [defaultFreeRecipes[i].name, defaultFreeRecipes[i].category]
+                [defaultFreeRecipes[index].name, defaultFreeRecipes[index].category]
             );
-        } */
 
-        const [ingredients] = defaultFreeRecipes.ingredients;
 
-        /* for (let i = 0; i < ingredients.length; i++) {
-            await pool.query(
-                'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
-                [defaultFreeRecipes[i].name, defaultFreeRecipes[i].category]
-            );
-        } */
+            for (let i = 0; i < defaultFreeRecipes[index].ingredients.length; i++) {
+                await pool.query(
+                    'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
+                    [defaultFreeRecipes[index].ingredients[i].fk_recipe, defaultFreeRecipes[index].ingredients[i].entry, defaultFreeRecipes[index].ingredients[i].type]
+                );
+            }
 
-        res.json(ingredients);
+            for (let i = 0; i < defaultFreeRecipes[index].steps.length; i++) {
+                await pool.query(
+                    'INSERT INTO step (fk_recipe, step_text) VALUES($1, $2) RETURNING *',
+                    [defaultFreeRecipes[index].steps[i].fk_recipe, defaultFreeRecipes[index].steps[i].text]
+                );
+            }
+        }
+
+        res.json(defaultFreeRecipes);
     } catch (err) {
         console.error(err.message);
     }
@@ -50,3 +56,6 @@ app.get('/recipes', async (req, res) => {
 app.listen((port), () => {
     console.log(`App running on: http://${url}:${port}`);
 });
+
+
+

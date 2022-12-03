@@ -1,0 +1,222 @@
+[
+  {
+    "name": "Easy Pancakes",
+    "category": "free",
+    "ingredients": [
+      { "fk_recipe": 1, "entry": "100g plain flour", "type": "flour" },
+      { "fk_recipe": 1, "entry": "2 large eggs", "type": "egg" },
+      { "fk_recipe": 1, "entry": "300ml milk", "type": "milk" },
+      {
+        "fk_recipe": 1,
+        "entry": "1 tbsp sunflower oil",
+        "type": "sunflour oil"
+      }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 1,
+        "text": "Put 100g plain flour, 2 large eggs, 300ml milk, 1 tbsp sunflower or vegetable oil and a pinch of salt into a bowl"
+      },
+      {
+        "fk_recipe": 1,
+        "text": "Set aside for 30 mins to rest if you have time, or start cooking straight away."
+      },
+      {
+        "fk_recipe": 1,
+        "text": "Set a medium frying pan or crêpe pan over a medium heat and carefully wipe it with some oiled kitchen paper."
+      },
+      {
+        "fk_recipe": 1,
+        "text": "When hot, cook your pancakes for 1 min on each side until golden, keeping them warm in a low oven as you go."
+      },
+      {
+        "fk_recipe": 1,
+        "text": "Serve with lemon wedges and caster sugar, or your favourite filling. Once cold, you can layer the pancakes between baking"
+      }
+    ]
+  },
+  {
+    "name": "Sourdough Bread",
+    "category": "free",
+    "ingredients": [
+      { "fk_recipe": 2, "entry": "3 cups flour", "type": "flour" },
+      { "fk_recipe": 2, "entry": "¼ tsp instant yeast", "type": "yeast" },
+      { "fk_recipe": 2, "entry": "1 tsp salt", "type": "salt" },
+      { "fk_recipe": 2, "entry": "½ cups water", "type": "water" }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 2,
+        "text": "Combine all the ingredients in a large bowl. Mix with a wooden spoon."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "After 12 to 20 hours, your dough will smell like beer and appear bubbly. Using wet hands, place dough on a lightly floured surface."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "Half an hour before the second rise is finished, get ready by setting your oven to 450 degrees and putting your empty covered pot inside to heat up."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "When hot, cook your pancakes for 1 min on each side until golden, keeping them warm in a low oven as you go."
+      },
+      {
+        "fk_recipe": 2,
+        "text": "Remove hot pot from the oven. Depending on the material of your pot, you may need to grease it with butter."
+      }
+    ]
+  },
+  {
+    "name": "Chicken soup",
+    "category": "free",
+    "ingredients": [
+      { "fk_recipe": 3, "entry": "1 diced, fresh onion", "type": "onion" },
+      {
+        "fk_recipe": 3,
+        "entry": "1 cup of cooked, diced chicken",
+        "type": "chicken"
+      },
+      {
+        "fk_recipe": 3,
+        "entry": "1 box of chicken broth",
+        "type": "chicken broth"
+      },
+      { "fk_recipe": 3, "entry": "1 cup of egg noodles", "type": "egg noodles" }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 3,
+        "text": "Start by simply sautéing your onion it a bit of olive oil."
+      },
+      {
+        "fk_recipe": 3,
+        "text": "Add chicken, vegetables and broth and bring to a boil."
+      },
+      {
+        "fk_recipe": 3,
+        "text": "Reduce the heat and simmer for about 10 minutes then add noodles and cook according to their package directions or until al dente."
+      }
+    ]
+  },
+  {
+    "name": "Basic Burger",
+    "category": "premium",
+    "ingredients": [
+      { "fk_recipe": 4, "entry": "1 large egg", "type": "egg" },
+      {
+        "fk_recipe": 4,
+        "entry": "½ teaspoon salt",
+        "type": "salt"
+      },
+      {
+        "fk_recipe": 4,
+        "entry": "½ teaspoon ground black pepper",
+        "type": "pepper"
+      },
+      { "fk_recipe": 4, "entry": "1 pound ground beef", "type": "ground beef" },
+      {
+        "fk_recipe": 4,
+        "entry": "½ cup fine dry bread crumbs",
+        "type": "bread crumbs"
+      }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 4,
+        "text": "Preheat an outdoor grill for high heat and lightly oil grate."
+      },
+      {
+        "fk_recipe": 4,
+        "text": "Whisk together egg, salt, and pepper in a medium bowl. Add ground beef and bread crumbs and mix with your hands or a fork until well blended. Form into four 3/4-inch-thick patties."
+      },
+      {
+        "fk_recipe": 4,
+        "text": "Place patties on the preheated grill. Cover and cook 6 to 8 minutes per side, or to desired doneness. An instant-read thermometer inserted into the center should read at least 160 degrees F (70 degrees C)."
+      }
+    ]
+  },
+  {
+    "name": "Saucy bean baked eggs",
+    "category": "premium",
+    "ingredients": [
+      {
+        "fk_recipe": 5,
+        "entry": "2 x 400g cans cherry tomatoes",
+        "type": "canned cherry tomatoes"
+      },
+      {
+        "fk_recipe": 5,
+        "entry": "400g can mixed bean salad, drained",
+        "type": "canned mixed bean salad"
+      },
+      {
+        "fk_recipe": 5,
+        "entry": "200g baby spinach",
+        "type": "baby spinach"
+      },
+      { "fk_recipe": 5, "entry": "4 medium eggs", "type": "egg" },
+      {
+        "fk_recipe": 5,
+        "entry": "50g thinly sliced smoked ham, torn",
+        "type": "ham"
+      }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 5,
+        "text": "Tip the tomatoes and bean salad into an ovenproof frying pan or shallow flameproof casserole dish. Simmer for 10 mins, or until reduced. Stir in the spinach and cook for 5 mins more until wilted."
+      },
+      {
+        "fk_recipe": 5,
+        "text": "Heat the grill to medium. Make four indentations in the mixture using the back of a spoon, then crack one egg in each. Nestle the ham in the mixture, then grill for 4-5 mins, or until the whites are set and the yolks runny. Serve with rye bread, if you like."
+      }
+    ]
+  },
+  {
+    "name": "Basic Burger",
+    "category": "premium",
+    "ingredients": [
+      { "fk_recipe": 6, "entry": "1 large egg", "type": "egg" },
+      {
+        "fk_recipe": 6,
+        "entry": "5 tbsp salted butter, plus extra for the tin",
+        "type": "butter"
+      },
+      {
+        "fk_recipe": 6,
+        "entry": "250g crunchy peanut butter",
+        "type": "peanut butter"
+      },
+      {
+        "fk_recipe": 6,
+        "entry": "8 tbsp strawberry or raspberry jam",
+        "type": "jam"
+      },
+      {
+        "fk_recipe": 6,
+        "entry": "80g light brown soft sugar",
+        "type": "brown soft sugar"
+      },
+      {
+        "fk_recipe": 6,
+        "entry": "200g rolled oats",
+        "type": "rolled oats"
+      }
+    ],
+    "steps": [
+      {
+        "fk_recipe": 6,
+        "text": "Heat the oven to 180C/160C fan/gas 4. Butter and line the base and sides of a 20cm square cake tin with baking parchment."
+      },
+      {
+        "fk_recipe": 6,
+        "text": "Put 3 tbsp each of the peanut butter and jam in separate small bowls and set aside. Tip the remaining peanut butter, the rest of the jam and the butter and sugar into a pan set over a medium heat and stir until everything has melted together. Quickly stir in the oats, then leave to cool for 5 mins."
+      },
+      {
+        "fk_recipe": 6,
+        "text": "Spoon the mixture into the prepared cake tin and gently press down with your hands. Dot over the reserved peanut butter and jam, then bake for 20-25 mins or until golden brown. Leave to cool completely in the tin, then turn out onto a board and cut into squares."
+      }
+    ]
+  }
+]
