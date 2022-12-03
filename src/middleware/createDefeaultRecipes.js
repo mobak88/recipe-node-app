@@ -33,8 +33,6 @@ exports.createDefaultRecipes = (async (req, res, next) => {
                     );
                 }
             }
-        } else {
-            console.log('Defautl exist');
         }
 
         next();

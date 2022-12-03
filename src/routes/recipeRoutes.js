@@ -1,4 +1,4 @@
-/* Routes exported for the aplication */
+/* Routes exported for recipes */
 const express = require('express');
 const recipeController = require('./../controllers/recipeControllers');
 const router = express.Router();

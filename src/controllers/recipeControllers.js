@@ -9,6 +9,14 @@ const premium = 'premium';
 // Get all recipes
 exports.getAllRecipes = ('/recipes', async (req, res) => {
     try {
+        const user = req.cookies.user_type;
+
+        if (user === premium) {
+            const recipes = await pool.query('SELECT * FROM recipe');
+
+            return res.json(recipes.rows);
+        }
+
         const recipes = await pool.query('SELECT * FROM recipe WHERE category = $1', [free]);
 
         res.json(recipes.rows);
