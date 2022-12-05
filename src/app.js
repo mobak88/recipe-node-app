@@ -8,6 +8,7 @@ const { createDefaultRecipes } = require('./utils/createDefeaultRecipes');
 
 const recipeRouter = require('./routes/recipeRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const searchIngredientRouter = require('./routes/searchRouter');
 
 const url = process.env.URL || 'localhost';
 const port = process.env.PORT || 8080;
@@ -24,6 +25,7 @@ app.use(express.json()); // Access to req.body
 // Imported routes to keep app file as small as possible
 app.use('/', recipeRouter);
 app.use('/', loginRoutes);
+app.use('/', searchIngredientRouter);
 
 app.listen((port), () => {
     createDefaultRecipes();

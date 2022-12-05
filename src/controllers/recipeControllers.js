@@ -2,10 +2,7 @@
 const pool = require('../db');
 const errorHandlers = require('./../utils/errorHandlers');
 const { structureRecipe } = require('../utils/structureRecipe');
-
-const free = 'free';
-const premium = 'premium';
-const admin = 'admin';
+const { free, premium, admin } = require('./../variables/userType');
 
 // Get all recipes
 exports.getAllRecipes = ('/recipes', async (req, res) => {
@@ -46,11 +43,12 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
 
         errorHandlers.checkIdExists(recipe, res);
 
-        if (recipe.rows.length > 0) {
+        if (recipe.rowCount > 0) {
             const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
 
             const data = {
                 name: recipeName,
+                category: recipe.rows[0].category,
                 ingredients: ingredients,
                 step_count: steps.length
             };
@@ -67,23 +65,39 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
 exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
     try {
         const { recipe_id } = req.params;
+        const user = req.cookies.user_type;
 
         errorHandlers.checkIdIsNumber(recipe_id, res);
 
-        // Using alias to differentiate tables with the same column name
-        const recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
+        let recipe;
+        if (user === premium || user === admin) {
+            // Using alias to differentiate tables with the same column name
+            recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1', [recipe_id]);
+        } else {
+            // Using alias to differentiate tables with the same column name
+            recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
+        }
 
         errorHandlers.checkIdExists(recipe, res);
 
-        const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
+        if (recipe.rowCount > 0) {
+            const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
 
-        const data = {
-            name: recipeName,
-            ingredients: ingredients,
-            steps: steps
-        };
+            const stepsWithStepCount = steps.map((step, i) => {
+                return { step_id: step.step_id, step_number: i + 1, text: step.text };
+            });
 
-        res.json(data);
+            console.log(steps.length);
+
+            const data = {
+                name: recipeName,
+                category: recipe.rows[0].category,
+                ingredients: ingredients,
+                steps: stepsWithStepCount
+            };
+
+            res.json(data);
+        }
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -94,15 +108,30 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
 exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
     try {
         const { recipe_id, step_id } = req.params;
+        const user = req.cookies.user_type;
 
         errorHandlers.checkIdIsNumber(recipe_id, res);
         errorHandlers.checkIdIsNumber(step_id, res);
 
-        const recipe = await pool.query('SELECT step_id, step_text FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3 ', [recipe_id, step_id, free]);
+        let steps;
+        if (user === premium || user === admin) {
+            steps = await pool.query('SELECT step_id, step_text FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1', [recipe_id]);
+        } else {
+            steps = await pool.query('SELECT step_id, step_text FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3', [recipe_id, step_id, free]);
+        }
 
-        errorHandlers.checkIdExists(recipe, res);
+        if (step_id > steps.rowCount || step_id === 0) {
+            res.status(404).json('Step does not exist');
+            return;
+        }
 
-        res.json(recipe.rows[0]);
+        const data = {
+            step_id: steps.rows[step_id - 1].step_id,
+            step_number: parseInt(step_id),
+            text: steps.rows[step_id - 1].step_text
+        };
+
+        res.json(data);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
