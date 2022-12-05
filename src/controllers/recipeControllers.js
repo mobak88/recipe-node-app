@@ -5,13 +5,14 @@ const { structureRecipe } = require('../utils/structureRecipe');
 
 const free = 'free';
 const premium = 'premium';
+const admin = 'admin';
 
 // Get all recipes
 exports.getAllRecipes = ('/recipes', async (req, res) => {
     try {
         const user = req.cookies.user_type;
 
-        if (user === premium) {
+        if (user === premium || user === admin) {
             const recipes = await pool.query('SELECT * FROM recipe');
 
             return res.json(recipes.rows);
@@ -30,23 +31,32 @@ exports.getAllRecipes = ('/recipes', async (req, res) => {
 exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
     try {
         const { recipe_id } = req.params;
+        const user = req.cookies.user_type;
 
         errorHandlers.checkIdIsNumber(recipe_id, res);
 
-        // Using alias to differentiate tables with the same column name
-        const recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
+        let recipe;
+        // Checking if user are premium or admin, making sql query acoridng to Authorization
+        if (user === premium || user === admin) {
+            // Using alias to differentiate tables with the same column name
+            recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1', [recipe_id]);
+        } else {
+            recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
+        }
 
         errorHandlers.checkIdExists(recipe, res);
 
-        const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
+        if (recipe.rows.length > 0) {
+            const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
 
-        const data = {
-            name: recipeName,
-            ingredients: ingredients,
-            step_count: steps.length
-        };
+            const data = {
+                name: recipeName,
+                ingredients: ingredients,
+                step_count: steps.length
+            };
 
-        res.json(data);
+            res.json(data);
+        }
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
