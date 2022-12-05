@@ -15,7 +15,6 @@ const checkIdIsNumber = (req, res, next) => {
     } else {
         return next();
     }
-
 };
 
 module.exports = { checkIdIsNumber };
