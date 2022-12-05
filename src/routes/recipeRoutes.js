@@ -1,6 +1,7 @@
 /* Routes exported for recipes */
 const express = require('express');
 const recipeController = require('./../controllers/recipeControllers');
+const { checkUserID } = require('./../middleware/checkIdIsNumber');
 const router = express.Router();
 
 router
@@ -9,7 +10,7 @@ router
 
 router
     .route('/recipes/:recipe_id')
-    .get(recipeController.getRecipe);
+    .get(checkUserID, recipeController.getRecipe);
 
 router
     .route('/recipes/:recipe_id/all')

@@ -1,6 +1,7 @@
 /* HTTP requests exported for recipes */
 const pool = require('../db');
 const errorHandlers = require('./../utils/errorHandlers');
+
 const { structureRecipe } = require('../utils/structureRecipe');
 const { free, premium, admin } = require('./../variables/userType');
 
@@ -29,8 +30,6 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
     try {
         const { recipe_id } = req.params;
         const user = req.cookies.user_type;
-
-        errorHandlers.checkIdIsNumber(recipe_id, res);
 
         let recipe;
         // Checking if user are premium or admin, making sql query acoridng to Authorization
