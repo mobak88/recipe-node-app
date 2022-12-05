@@ -1,12 +1,12 @@
 /**
- * Middleware htat checks if default recipes exists
+ * FUnction that checks if default recipes exists
  * If they exist it just moves on by calling next
  * If not creates default recipes
  * */
 
 const pool = require('../db');
 
-exports.createDefaultRecipes = (async (req, res, next) => {
+exports.createDefaultRecipes = (async () => {
     try {
         const defaultFreeRecipes = require('./../defaultRecipes.json');
         const recipes = await pool.query('SELECT * FROM recipe');
@@ -34,8 +34,6 @@ exports.createDefaultRecipes = (async (req, res, next) => {
                 }
             }
         }
-
-        next();
     } catch (err) {
         console.error(err.message);
     }

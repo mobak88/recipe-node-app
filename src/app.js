@@ -21,13 +21,12 @@ app.use(cookieParser());
 // Built-in middleware function in Express, parses incoming requests with JSON payloads
 app.use(express.json()); // Access to req.body
 
-app.use(createDefaultRecipes);
-
 // Imported routes to keep app file as small as possible
 app.use('/', recipeRouter);
 app.use('/', loginRoutes);
 
 app.listen((port), () => {
+    createDefaultRecipes();
     console.log(`App running on: http://${url}:${port}`);
 });
 
