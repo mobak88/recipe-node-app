@@ -9,6 +9,7 @@ const { createDefaultRecipes } = require('./utils/createDefeaultRecipes');
 const recipeRouter = require('./routes/recipeRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const searchIngredientRouter = require('./routes/searchRouter');
+const ingredientsRouter = require('./routes/ingredientsRoutes');
 
 const url = process.env.URL || 'localhost';
 const port = process.env.PORT || 8080;
@@ -26,11 +27,23 @@ app.use(express.json()); // Access to req.body
 app.use('/', recipeRouter);
 app.use('/', loginRoutes);
 app.use('/', searchIngredientRouter);
+app.use('/', ingredientsRouter);
 
+/* Function awaits createDefaultRecipes, then running server  */
+const startUp = async () => {
+    try {
+        await createDefaultRecipes();
 
-app.listen((port), () => {
-    console.log(`App running on: http://${url}:${port}`);
-})
+        app.listen((port), () => {
+            console.log(`App running on: http://${url}:${port}`);
+        });
+    } catch (err) {
+        console.error(err.message);
+    }
+};
+
+startUp();
+
 
 
 

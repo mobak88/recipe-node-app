@@ -10,15 +10,18 @@ exports.getAllRecipes = ('/recipes', async (req, res) => {
     try {
         const user = req.cookies.user_type;
 
+        let recipes;
         if (user === premium || user === admin) {
-            const recipes = await pool.query('SELECT * FROM recipe');
-
-            return res.json(recipes.rows);
+            recipes = await pool.query('SELECT * FROM recipe');
+        } else {
+            recipes = await pool.query('SELECT * FROM recipe WHERE category = $1', [free]);
         }
 
-        const recipes = await pool.query('SELECT * FROM recipe WHERE category = $1', [free]);
+        const data = {
+            recipes: recipes.rows
+        };
 
-        res.json(recipes.rows);
+        res.json(data);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -120,11 +123,15 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
         const text = steps.rows[step_id - 1].step_text.replaceAll('/', ' or ');
 
         const data = {
-            recipe_id: steps.rows[0].recipe_id,
-            recipe_name: steps.rows[0].recipe_name,
-            step_id: steps.rows[step_id - 1].step_id,
-            step_number: parseInt(step_id),
-            text: text
+            step: {
+                step_id: steps.rows[step_id - 1].step_id,
+                step_number: parseInt(step_id),
+                text: text,
+                recipe: {
+                    recipe_id: steps.rows[0].recipe_id,
+                    recipe_name: steps.rows[0].recipe_name,
+                }
+            }
         };
 
         res.json(data);
