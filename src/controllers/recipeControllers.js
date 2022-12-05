@@ -107,9 +107,9 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
 
         let steps;
         if (user === premium || user === admin) {
-            steps = await pool.query('SELECT step_id, step_text FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1', [recipe_id]);
+            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1', [recipe_id]);
         } else {
-            steps = await pool.query('SELECT step_id, step_text FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3', [recipe_id, step_id, free]);
+            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3', [recipe_id, step_id, free]);
         }
 
         if (step_id > steps.rowCount || step_id === 0) {
@@ -120,6 +120,8 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
         const text = steps.rows[step_id - 1].step_text.replaceAll('/', ' or ');
 
         const data = {
+            recipe_id: steps.rows[0].recipe_id,
+            recipe_name: steps.rows[0].recipe_name,
             step_id: steps.rows[step_id - 1].step_id,
             step_number: parseInt(step_id),
             text: text
