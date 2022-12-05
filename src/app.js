@@ -27,11 +27,11 @@ app.use('/', recipeRouter);
 app.use('/', loginRoutes);
 app.use('/', searchIngredientRouter);
 
-createDefaultRecipes().then(
-    app.listen((port), () => {
-        console.log(`App running on: http://${url}:${port}`);
-    })
-)
+
+app.listen((port), () => {
+    console.log(`App running on: http://${url}:${port}`);
+})
+
 
 
 

@@ -66,8 +66,6 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
         const { recipe_id } = req.params;
         const user = req.cookies.user_type;
 
-        errorHandlers.checkIdIsNumber(recipe_id, res);
-
         let recipe;
         if (user === premium || user === admin) {
             // Using alias to differentiate tables with the same column name
@@ -106,9 +104,6 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
     try {
         const { recipe_id, step_id } = req.params;
         const user = req.cookies.user_type;
-
-        errorHandlers.checkIdIsNumber(recipe_id, res);
-        errorHandlers.checkIdIsNumber(step_id, res);
 
         let steps;
         if (user === premium || user === admin) {

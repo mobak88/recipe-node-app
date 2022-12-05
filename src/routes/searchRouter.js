@@ -6,6 +6,6 @@ const router = express.Router();
 
 router
     .route('/search/:ingredient')
-    .get(validLogin, searchController.searchIngredient);
+    .get(searchController.searchIngredient);
 
 module.exports = router;
