@@ -1,4 +1,4 @@
-/* Route exported for search ingredients */
+/* Route exported for search all ingredients */
 const express = require('express');
 const ingredientsController = require('../controllers/ingredientsController');
 const { validateUser } = require('../middleware/validateUser');

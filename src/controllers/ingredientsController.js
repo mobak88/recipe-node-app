@@ -4,7 +4,6 @@ const pool = require('../db');
 // Get all recipes
 exports.getAllIngredients = ('/ingredients', async (req, res) => {
     try {
-
         const ingredients = await pool.query('SELECT ingredient_category FROM ingredient');
 
         const data = {

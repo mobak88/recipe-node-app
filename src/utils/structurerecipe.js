@@ -17,7 +17,7 @@ exports.structureRecipe = (recipe) => {
     const filteredIngredients = filterUniqueItems(recipe, ingredientsSet, 'ingredient_id');
     const filteredSteps = filterUniqueItems(recipe, stepsSet, 'step_id');
 
-    //Return array of objects with unique ingredients
+    //Return array of objects with unique objects
     const ingredients = filteredIngredients.map(ing => {
         return { entry: ing.ingredient_name, type: ing.ingredient_category };
     });

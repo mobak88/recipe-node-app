@@ -1,3 +1,4 @@
+/* Exported object of user types */
 user = {
     free: 'free',
     premium: 'premium',

@@ -1,5 +1,4 @@
 /* Middleware that works between server and postgres database */
-
 const Pool = require('pg').Pool;
 require('dotenv').config();
 
