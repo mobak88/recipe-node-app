@@ -140,3 +140,54 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+// Post recipe
+exports.postRecipe = ('/recipes', async (req, res) => {
+    try {
+        const { recipe_name, category, ingredients, steps } = req.body;
+
+        if (!recipe_name) {
+            return res.status(400).send('Recipe name missing');
+        }
+
+        if (!category) {
+            return res.status(400).send('Category missing');
+        }
+
+        if (!Array.isArray(ingredients) || !Array.isArray(steps)) {
+            return res.status(400).send('Ingredients and steps needs to be an array of objects');
+        }
+
+        const checkIfIngredientsAreObjects = ingredients.find(ingredient => {
+            if (!ingredient.ingredient_name || !ingredient.ingredient_category) {
+                return true;
+            }
+        });
+
+        if (checkIfIngredientsAreObjects) {
+            return res.status(400).send('Ingredient name and category must be provided as an object');
+        }
+
+        const checkIfStepsAreObjects = steps.find(step => {
+            if (!step.step_text) {
+                return true;
+            }
+        });
+
+        if (checkIfStepsAreObjects) {
+            return res.status(400).send('Step text must be provided as an object');
+        }
+
+        const data = {
+            recipe_name: recipe_name,
+            category: category,
+            ingredients: ingredients,
+            steps: steps
+        };
+
+        res.json(data);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});

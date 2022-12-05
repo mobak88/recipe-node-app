@@ -2,11 +2,13 @@
 const express = require('express');
 const recipeController = require('./../controllers/recipeControllers');
 const { checkIdIsNumber } = require('./../middleware/checkIdIsNumber');
+const { validateAdmin } = require('./../middleware/validateAdmin');
 const router = express.Router();
 
 router
     .route('/recipes')
-    .get(recipeController.getAllRecipes);
+    .get(recipeController.getAllRecipes)
+    .post(validateAdmin, recipeController.postRecipe);
 
 router
     .route('/recipes/:recipe_id')
