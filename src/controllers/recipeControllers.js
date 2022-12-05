@@ -84,10 +84,8 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
             const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
 
             const stepsWithStepCount = steps.map((step, i) => {
-                return { step_id: step.step_id, step_number: i + 1, text: step.text };
+                return { step_id: step.step_id, step_number: i + 1, text: step.text.replaceAll('/', ' or ') };
             });
-
-            console.log(steps.length);
 
             const data = {
                 name: recipeName,
@@ -125,10 +123,12 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
             return;
         }
 
+        const text = steps.rows[step_id - 1].step_text.replaceAll('/', ' or ');
+
         const data = {
             step_id: steps.rows[step_id - 1].step_id,
             step_number: parseInt(step_id),
-            text: steps.rows[step_id - 1].step_text
+            text: text
         };
 
         res.json(data);
