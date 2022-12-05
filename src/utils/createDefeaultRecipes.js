@@ -8,7 +8,7 @@ const pool = require('../db');
 
 exports.createDefaultRecipes = (async () => {
     try {
-        const defaultFreeRecipes = require('./../defaultRecipes.json');
+        const defaultFreeRecipes = require('../defaultRecipes.json');
         const recipes = await pool.query('SELECT * FROM recipe');
 
         if (recipes.rows.length !== defaultFreeRecipes.length) {

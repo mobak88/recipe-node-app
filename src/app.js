@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-const { createDefaultRecipes } = require('./middleware/createDefeaultRecipes');
+const { createDefaultRecipes } = require('./utils/createDefeaultRecipes');
 
 const recipeRouter = require('./routes/recipeRoutes');
 const loginRoutes = require('./routes/loginRoutes');
