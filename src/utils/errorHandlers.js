@@ -7,7 +7,41 @@
 exports.checkIdExists = (item, res) => {
     // If not match id does not exist
     if (item.rows.length === 0) {
-        res.status(404).json('Recipe not found');
-        return;
+        return res.status(404).json('Recipe not found');
+    }
+};
+
+exports.checkPostRecipe = (res, recipe_name, category, ingredients, steps) => {
+    // Checking if data is valid, sending apropriate status code, messages and returning if not valid
+    if (!recipe_name) {
+        return res.status(400).send('Recipe name missing');
+    }
+
+    if (!category) {
+        return res.status(400).send('Category missing');
+    }
+
+    if (!Array.isArray(ingredients) || !Array.isArray(steps)) {
+        return res.status(400).send('Ingredients and steps needs to be an array of objects');
+    }
+
+    const checkIfIngredientsAreObjects = ingredients.find(ingredient => {
+        if (!ingredient.ingredient_name || !ingredient.ingredient_category) {
+            return true;
+        }
+    });
+
+    if (checkIfIngredientsAreObjects) {
+        return res.status(400).send('Ingredient name and category must be provided as an object');
+    }
+
+    const checkIfStepsAreObjects = steps.find(step => {
+        if (!step.step_text) {
+            return true;
+        }
+    });
+
+    if (checkIfStepsAreObjects) {
+        return res.status(400).send('Step text must be provided as an object');
     }
 };

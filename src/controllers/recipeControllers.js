@@ -35,7 +35,7 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
         const user = req.cookies.user_type;
 
         let recipe;
-        // Checking if user are premium or admin, making sql query acoridng to Authorization
+        // Checking if user are premium or admin, making sql query acording to Authorization
         if (user === premium || user === admin) {
             // Using alias to differentiate tables with the same column name
             recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1', [recipe_id]);
@@ -146,46 +146,31 @@ exports.postRecipe = ('/recipes', async (req, res) => {
     try {
         const { recipe_name, category, ingredients, steps } = req.body;
 
-        if (!recipe_name) {
-            return res.status(400).send('Recipe name missing');
+        const returnErrStatus = errorHandlers.checkPostRecipe(res, recipe_name, category, ingredients, steps);
+
+        if (returnErrStatus) {
+            return;
         }
 
-        if (!category) {
-            return res.status(400).send('Category missing');
+        // Excecuting queries if non of the above checks gets triggered
+        const newRecipe = await pool.query('INSERT INTO recipe (recipe_name, category) VALUES($1, $2) RETURNING *', [recipe_name, category]);
+
+        // Iterating arrays and excecuting query per object in array
+        for (let i = 0; i < ingredients.length; i++) {
+            await pool.query(
+                'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
+                [newRecipe.rows[0].recipe_id, ingredients[i].ingredient_name, ingredients[i].ingredient_category]
+            );
         }
 
-        if (!Array.isArray(ingredients) || !Array.isArray(steps)) {
-            return res.status(400).send('Ingredients and steps needs to be an array of objects');
+        for (let i = 0; i < steps.length; i++) {
+            await pool.query(
+                'INSERT INTO step (fk_recipe, step_text) VALUES($1, $2) RETURNING *',
+                [newRecipe.rows[0].recipe_id, steps[i].step_text]
+            );
         }
 
-        const checkIfIngredientsAreObjects = ingredients.find(ingredient => {
-            if (!ingredient.ingredient_name || !ingredient.ingredient_category) {
-                return true;
-            }
-        });
-
-        if (checkIfIngredientsAreObjects) {
-            return res.status(400).send('Ingredient name and category must be provided as an object');
-        }
-
-        const checkIfStepsAreObjects = steps.find(step => {
-            if (!step.step_text) {
-                return true;
-            }
-        });
-
-        if (checkIfStepsAreObjects) {
-            return res.status(400).send('Step text must be provided as an object');
-        }
-
-        const data = {
-            recipe_name: recipe_name,
-            category: category,
-            ingredients: ingredients,
-            steps: steps
-        };
-
-        res.json(data);
+        res.status(201).send(`Recipe ${newRecipe.rows[0].recipe_name} was created with id: ${newRecipe.rows[0].recipe_id}`);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
