@@ -11,8 +11,13 @@ exports.checkIdExists = (item, res) => {
     }
 };
 
+/**
+ * Checking if data is valid
+ * sending apropriate status code, messages and returning if not valid
+ * Takes response, recipe name, category ingredients and steps as parameters
+ * Returns response with error code and message
+ * */
 exports.checkPostRecipe = (res, recipe_name, category, ingredients, steps) => {
-    // Checking if data is valid, sending apropriate status code, messages and returning if not valid
     if (!recipe_name) {
         return res.status(400).send('Recipe name missing');
     }

@@ -11,6 +11,7 @@ exports.getAllRecipes = ('/recipes', async (req, res) => {
         const user = req.cookies.user_type;
 
         let recipes;
+        // Checking if user are premium or admin, making sql query acording to Authorization
         if (user === premium || user === admin) {
             recipes = await pool.query('SELECT * FROM recipe');
         } else {
@@ -43,20 +44,23 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
             recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
         }
 
-        errorHandlers.checkIdExists(recipe, res);
+        const returnErrStatus = errorHandlers.checkIdExists(recipe, res);
 
-        if (recipe.rowCount > 0) {
-            const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
-
-            const data = {
-                name: recipeName,
-                category: recipe.rows[0].category,
-                ingredients: ingredients,
-                step_count: steps.length
-            };
-
-            res.json(data);
+        // Returning if error exist
+        if (returnErrStatus) {
+            return;
         }
+
+        const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
+
+        const data = {
+            name: recipeName,
+            category: recipe.rows[0].category,
+            ingredients: ingredients,
+            step_count: steps.length
+        };
+
+        res.json(data);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -70,32 +74,34 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
         const user = req.cookies.user_type;
 
         let recipe;
+        // Checking if user are premium or admin, making sql query acording to Authorization
         if (user === premium || user === admin) {
             // Using alias to differentiate tables with the same column name
             recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1', [recipe_id]);
         } else {
-            // Using alias to differentiate tables with the same column name
             recipe = await pool.query('SELECT * FROM recipe JOIN ingredient AS ing ON recipe_id = ing.fk_recipe JOIN step AS stp ON recipe_id = stp.fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
         }
 
-        errorHandlers.checkIdExists(recipe, res);
+        const returnErrStatus = errorHandlers.checkIdExists(recipe, res);
 
-        if (recipe.rowCount > 0) {
-            const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
-
-            const stepsWithStepCount = steps.map((step, i) => {
-                return { step_id: step.step_id, step_number: i + 1, text: step.text.replaceAll('/', ' or ') };
-            });
-
-            const data = {
-                name: recipeName,
-                category: recipe.rows[0].category,
-                ingredients: ingredients,
-                steps: stepsWithStepCount
-            };
-
-            res.json(data);
+        if (returnErrStatus) {
+            return;
         }
+
+        const { recipeName, steps, ingredients } = structureRecipe(recipe.rows);
+
+        const stepsWithStepCount = steps.map((step, i) => {
+            return { step_id: step.step_id, step_number: i + 1, text: step.text.replaceAll('/', ' or ') };
+        });
+
+        const data = {
+            name: recipeName,
+            category: recipe.rows[0].category,
+            ingredients: ingredients,
+            steps: stepsWithStepCount
+        };
+
+        res.json(data);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -109,6 +115,7 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
         const user = req.cookies.user_type;
 
         let steps;
+        // Checking if user are premium or admin, making sql query acording to Authorization
         if (user === premium || user === admin) {
             steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1', [recipe_id]);
         } else {
@@ -152,7 +159,6 @@ exports.postRecipe = ('/recipes', async (req, res) => {
             return;
         }
 
-        // Excecuting queries if non of the above checks gets triggered
         const newRecipe = await pool.query('INSERT INTO recipe (recipe_name, category) VALUES($1, $2) RETURNING *', [recipe_name, category]);
 
         // Iterating arrays and excecuting query per object in array
