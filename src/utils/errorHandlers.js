@@ -16,6 +16,7 @@ exports.checkIdExists = (item, res) => {
  * sending apropriate status code, messages and returning if not valid
  * Takes response, recipe name, category ingredients and steps as parameters
  * Returns response with error code and message
+ * Its not very reusable, it exists to not clutter the controller
  * */
 exports.checkPostRecipe = (res, recipe_name, category, ingredients, steps) => {
     if (!recipe_name) {

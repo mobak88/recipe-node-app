@@ -12,7 +12,8 @@ router
 
 router
     .route('/recipes/:recipe_id')
-    .get(checkIdIsNumber, recipeController.getRecipe);
+    .get(checkIdIsNumber, recipeController.getRecipe)
+    .patch(validateAdmin, checkIdIsNumber, recipeController.updateRecipe);
 
 router
     .route('/recipes/:recipe_id/all')

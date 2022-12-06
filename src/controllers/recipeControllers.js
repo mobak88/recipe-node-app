@@ -182,3 +182,16 @@ exports.postRecipe = ('/recipes', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+// Update recipe
+exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
+    try {
+        const { recipe_id } = req.params;
+        const { recipe_name, category, ingredients, steps } = req.body;
+
+        res.send(req.body);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
