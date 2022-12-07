@@ -6,7 +6,7 @@
  */
 
 /**
- * check if provided ingredients > or < than ingredients for recipe in database
+ * Check if provided ingredients > or < than ingredients for recipe in database
  * if provided ingredients > udpates existing ingredients and creates new ingredients
  * in database for each extra ingredient provided
  * if ingredients < updates ingredients and deletes the rest of
