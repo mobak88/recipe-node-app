@@ -55,7 +55,7 @@ CREATE TABLE step(
 ## `start`
 
 You need to be in the root folder or change the start command to fit where you want to start it from.  
-Start the server.
+Start the server:
 
 ```
 npm run start
