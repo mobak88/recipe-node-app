@@ -31,8 +31,6 @@ After you have created the database, copy the schema from database.sql file, eve
 You need to be in the root folder or change the start command to fit where you want to start it from.
 Start the server.
 
-````
-
 npm run start
 
 # or
@@ -228,4 +226,3 @@ To delete a recipe send a DELETE request to the `/recipes/:recipe_id` resource. 
 - pg: PostgreSQL client for Node.js. [Read more about pg](https://github.com/brianc/node-postgres)
 - cookie-parser: Parse Cookie header and populate `req.cookies`. [Read more about cookie-parser](https://www.npmjs.com/package/cookie-parser)
 ```
-````
