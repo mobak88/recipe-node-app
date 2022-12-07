@@ -103,10 +103,10 @@ To login send POST request to the `/login` resource with a `user_type` and `admi
 
 ### Available to premium users and admin
 
-| Name                            | Request type | Endpoint                                  |
-| ------------------------------- | ------------ | ----------------------------------------- |
-| Get all recipes with ingredient | GET          | http://localhost:8080/search/{ingredient} |
-| Get list all ingredients        | GET          | http://localhost:8080/ingredients         |
+| Name                                  | Request type | Endpoint                                  |
+| ------------------------------------- | ------------ | ----------------------------------------- |
+| Get all recipes with ingredient       | GET          | http://localhost:8080/search/{ingredient} |
+| Get list of all available ingredients | GET          | http://localhost:8080/ingredients         |
 
 ### Available to admin
 
