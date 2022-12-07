@@ -20,7 +20,11 @@ psql -U postgres
 
 ### Conect to a DATABASE
 
-`\c + DATABASE name`
+Paste in `\c + DATABASE name` to connect to database. If you copied the database name from the schema paste code below to connext to the database:
+
+```sh
+\c recipes_system;
+```
 
 ### Create tables
 
