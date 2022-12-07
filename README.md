@@ -12,13 +12,11 @@ Open your terminal
 
 ### Conect to PSQL
 
-Paste psql -U postgres
+Paste in `psql -U postgres` to connect to PSQL
 
 ```sh
 psql -U postgres
 ```
-
-to connect to PSQL
 
 ### Conect to a DATABASE
 
