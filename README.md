@@ -81,7 +81,7 @@ To login send POST request to the `/login` resource with a `user_type` and `admi
 To add a recipe send a POST request to the `/recipes` resource with a Content-Type JSON as in the example below. You must provide:
 
 - recipe_name as string
-- category as string
+- category as string must be either `free` or `premium`
 - ingredients as an array of objects with at least one object containing ingredient_name as string and ingredient_category as string
 - steps as an array of objects with at least one object containing step_text as string
 
@@ -121,7 +121,7 @@ To add a recipe send a POST request to the `/recipes` resource with a Content-Ty
 To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource with a with Content-Type JSON as in the example below. If you dont provide `ingredient_id` and or `step_id` a new ingredient or step will be created, if you provide it the respective ingredient and or step will get updated. It ignores everything you leave out and updates only what you provide. New ingreedients must have `ingredient_name` as string and `ingredient_category` as string. New steps must have `step_text` as string.
 
 - recipe_name as string
-- category as string
+- category as string must be either `free` or `premium`
 - ingredients as an array of objects with at least one object containing ingredient_name as string and ingredient_category as string
 - steps as an array of objects with at least one object containing step_text as string
 
@@ -165,7 +165,7 @@ To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource wi
 To replace a recipe send a PUT request to the `/recipes/:recipe_id` resource with a with Content-Type JSON as in the example below.
 
 - recipe_name as string
-- category as string
+- category as string must be either `free` or `premium`
 - ingredients as an array of objects with at least one object containing ingredient_name as string and ingredient_category as string
 - steps as an array of objects with at least one object containing step_text as string
 

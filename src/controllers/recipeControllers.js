@@ -122,6 +122,7 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
             steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3', [recipe_id, step_id, free]);
         }
 
+        // If step_id > steps.rowCount then step dont exist. id starts at 1, 0 does not exist
         if (step_id > steps.rowCount || step_id === 0) {
             res.status(404).json('Step does not exist');
             return;
@@ -191,7 +192,7 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
         const { updateIngredients, updateSTeps } = require('./../utils/updateRecipe');
 
 
-        // CHecking if body is empty
+        // Checking if body is empty
         if (Object.keys(req.body).length === 0) {
             return res.status(204).json('No data in body');
         }

@@ -1,6 +1,7 @@
 /**
  * Login controller
  * setting cookie to premium or admin if it is provided in req.body
+ * returns 401 response status if error gets triggered
 */
 
 const { premium, admin } = require('./../variables/userType');
