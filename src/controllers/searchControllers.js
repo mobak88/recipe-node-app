@@ -1,7 +1,7 @@
 /* HTTP requests exported for search ingredient */
 const pool = require('../db');
 
-// Get all recipes
+// Get all recipes with ingredient
 exports.searchIngredient = ('/search/:ingredient', async (req, res) => {
     try {
         const { ingredient } = req.params;

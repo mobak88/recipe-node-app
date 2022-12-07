@@ -7,12 +7,12 @@
 
 /**
  * Check if provided ingredients > or < than ingredients for recipe in database
- * if provided ingredients > udpates existing ingredients and creates new ingredients
+ * if provided ingredients > updates existing ingredients and creates new ingredients
  * in database for each extra ingredient provided
  * if ingredients < updates ingredients and deletes the rest of
- * the ingredints in the database for the recipe
+ * the ingredients in the database for the recipe
  * takes ingredients array, recipe id and response as parameter
- * returns error if error gets triggered
+ * returns 400 response status if error gets triggered
  */
 const pool = require('../db');
 

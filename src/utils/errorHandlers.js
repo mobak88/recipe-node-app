@@ -2,7 +2,7 @@
 
 /**
  * Checks if query.rows returns anything
- * if not send error msg
+ * if not returns 404 response status if not
  * Takes query result and response as parameters
  * */
 
@@ -17,7 +17,7 @@ exports.checkIdExists = (item, res) => {
  * Checking if data is valid
  * sending apropriate status code, messages and returning if not valid
  * Takes response, recipe name, category ingredients and steps as parameters
- * Returns response with error code and message
+ * Returns 400 response status
  * Its not very reusable, it exists to not clutter the controller
 */
 exports.checkPostRecipe = (res, recipe_name, category, ingredients, steps) => {

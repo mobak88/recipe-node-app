@@ -1,6 +1,7 @@
 /**
  * Authorizing Middleware for admin
  * checks if user is authorized as an admin
+ * returns 401 response status if not authorized
 */
 
 const { admin } = require('../variables/userType');

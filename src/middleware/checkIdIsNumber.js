@@ -1,6 +1,7 @@
 /**
  * Middleware that checks if params is number and exists
  * Calls next if conditions are met
+ * returns 422 response status if not
 */
 
 const checkIdIsNumber = (req, res, next) => {
