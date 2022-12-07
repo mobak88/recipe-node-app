@@ -1,5 +1,10 @@
 /**
  * Extracted logic to function because it made the controller huge
+ * could have used callback function for returning error and made them one function,
+ * but many people dont like callbacks so I just made two functions
+ */
+
+/**
  * check if provided ingredients > or < than ingredients for recipe in database
  * if provided ingredients > udpates existing ingredients and creates new ingredients
  * in database for each extra ingredient provided

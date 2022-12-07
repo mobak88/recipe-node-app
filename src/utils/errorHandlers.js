@@ -1,3 +1,5 @@
+/* Reusable error handler functions */
+
 /**
  * Checks if query.rows returns anything
  * if not send error msg
