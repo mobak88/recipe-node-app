@@ -42,7 +42,7 @@ The application will only show results for free recipes to user if the user are 
 
 #### Login example
 
-To login send POST request with a user type and `admin` or `premium`:
+To login send POST request to the `/login` resource with a `user_type` and `admin` as string or `user_type` and `premium` as string with Content-Type JSON, you get authorized to the respective resourses after logging in. Login are cookies, remove cookie `user_type` to logout
 
 ```
 {
@@ -57,14 +57,45 @@ To login send POST request with a user type and `admin` or `premium`:
 | Get all recipes with ingredient | GET          | http://localhost:8080/search/{ingredient} |
 | Get list all ingredients        | GET          | http://localhost:8080/ingredients         |
 
-### Available admin
+### Available to admin
 
-| Name                        | Request type | Endpoint                              |
-| --------------------------- | ------------ | ------------------------------------- |
-| Post all recipes            | GET          | http://localhost:8080/login           |
-| Get recipe                  | GET          | http://localhost:8080/{recipe_id}     |
-| Get recipe with all details | GET          | http://localhost:8080/{recipe_id}/all |
-| Get single step             | GET          | http://localhost:8080/{step_id}       |
+| Name          | Request type | Endpoint                       |
+| ------------- | ------------ | ------------------------------ |
+| Post a recipe | POST         | http://localhost:8080//recipes |
+
+#### Add recipe example
+
+To add a recipe send a POST request to the /recipes resource with a with Content-Type JSON as in the example below. You must provide:
+
+- recipe_name as string
+- category as string
+- ingredients as an array of objects with at least one object containing ingredient_name as string and ingredient_category as string
+- steps as an array of objects with at least one object containing step_text as string
+
+```
+{
+    "recipe_name": "rice",
+    "category": "free",
+    "ingredients": [
+        {
+            "ingredient_name": "rice",
+            "ingredient_category": "rice"
+        },
+        {
+            "ingredient_name": "salt",
+            "ingredient_category": "salt"
+        }
+    ],
+    "steps": [
+        {
+            "step_text": "Boil water"
+        },
+        {
+            "step_text": "Add salt and rice"
+        }
+    ]
+}
+```
 
 ## `start`
 
