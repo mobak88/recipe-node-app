@@ -62,7 +62,7 @@ const replaceIngredients = async (recipe_id, ingredients, res) => {
         const deleteIngredientCount = allIngredients.rowCount - ingredients.length;
 
         // Iterating arrays and excecuting query per object in array
-        for (let i = 0; i < ingredients.length - deleteIngredientCount; i++) {
+        for (let i = 0; i < allIngredients.rowCount - deleteIngredientCount; i++) {
             returnErr(i);
 
             await pool.query(
@@ -132,7 +132,7 @@ const replaceSteps = async (recipe_id, steps, res) => {
         const deleteStepsCount = allSteps.rowCount - steps.length;
 
         // Iterating arrays and excecuting query per object in array
-        for (let i = 0; i < steps.length - deleteStepsCount; i++) {
+        for (let i = 0; i < allSteps.rowCount - deleteStepsCount; i++) {
             returnErr(i);
 
             await pool.query(
