@@ -12,11 +12,11 @@
  * if ingredients < updates ingredients and deletes the rest of
  * the ingredients in the database for the recipe
  * takes ingredients array, recipe id and response as parameter
- * returns 400 response status if error gets triggered
+ * returns true if error gets triggered
  */
 const pool = require('../db');
 
-const replaceIngredients = async (recipe_id, ingredients, res) => {
+const replaceIngredients = async (recipe_id, ingredients) => {
     const allIngredients = await pool.query(
         'SELECT * FROM ingredient WHERE fk_recipe = $1',
         [recipe_id]
@@ -24,8 +24,8 @@ const replaceIngredients = async (recipe_id, ingredients, res) => {
 
     // Helper that returns error if error is triggered to avoid code duplication, takes index as parameter
     const returnErr = (i) => {
-        if (!ingredients[i].ingredient_name || !ingredients[i].ingredient_category) {
-            return res.status(400).send('All ingredients must have name and category');
+        if (!ingredients[i]?.ingredient_name || !ingredients[i]?.ingredient_category) {
+            return true;
         }
     };
 
@@ -35,7 +35,11 @@ const replaceIngredients = async (recipe_id, ingredients, res) => {
 
         // Iterating arrays and excecuting query per object in array
         for (let i = 0; i < ingredients.length - newIngredintsCount; i++) {
-            returnErr(i);
+            const newErr = returnErr(i);
+
+            if (newErr) {
+                return true;
+            }
 
             await pool.query(
                 'UPDATE ingredient SET ingredient_name = $1, ingredient_category = $2 WHERE ingredient_id = $3',
@@ -47,7 +51,11 @@ const replaceIngredients = async (recipe_id, ingredients, res) => {
         if (newIngredintsCount > 0) {
             // Creating new ingredient for each ingredient > ingredients for recipe in database
             for (let i = 0; i < newIngredintsCount; i++) {
-                returnErr(i);
+                const newErr = returnErr(i);
+
+                if (newErr) {
+                    return true;
+                }
 
                 await pool.query(
                     'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
@@ -63,7 +71,11 @@ const replaceIngredients = async (recipe_id, ingredients, res) => {
 
         // Iterating arrays and excecuting query per object in array
         for (let i = 0; i < allIngredients.rowCount - deleteIngredientCount; i++) {
-            returnErr(i);
+            const newErr = returnErr(i);
+
+            if (newErr) {
+                return true;
+            }
 
             await pool.query(
                 'UPDATE ingredient SET ingredient_name = $1, ingredient_category = $2 WHERE ingredient_id = $3',
@@ -71,9 +83,7 @@ const replaceIngredients = async (recipe_id, ingredients, res) => {
             );
         }
 
-        for (let i = 0; i < deleteIngredientCount; i++) {
-            returnErr(i);
-
+        for (let i = ingredients.length; i < allIngredients.rowCount; i++) {
             await pool.query(
                 'DELETE FROM ingredient WHERE ingredient_id = $1',
                 [allIngredients.rows[i].ingredient_id]
@@ -87,7 +97,7 @@ const replaceIngredients = async (recipe_id, ingredients, res) => {
  * takes steps array, recipe id and response as parameter
  * returns error if error gets triggered
  */
-const replaceSteps = async (recipe_id, steps, res) => {
+const replaceSteps = async (recipe_id, steps) => {
     const allSteps = await pool.query(
         'SELECT * FROM step WHERE fk_recipe = $1',
         [recipe_id]
@@ -95,7 +105,7 @@ const replaceSteps = async (recipe_id, steps, res) => {
 
     const returnErr = (i) => {
         if (!steps[i].step_text) {
-            return res.status(400).send('All steps needs step text');
+            return true;
         }
     };
 
@@ -105,7 +115,11 @@ const replaceSteps = async (recipe_id, steps, res) => {
 
         // Iterating arrays and excecuting query per object in array
         for (let i = 0; i < steps.length - newStepsCount; i++) {
-            returnErr(i);
+            const newErr = returnErr(i);
+
+            if (newErr) {
+                return true;
+            }
 
             await pool.query(
                 'UPDATE step SET step_text = $1 WHERE step_id = $2',
@@ -117,7 +131,11 @@ const replaceSteps = async (recipe_id, steps, res) => {
         if (newStepsCount > 0) {
             // Creating new step for each step > steps for recipe in database
             for (let i = 0; i < newStepsCount; i++) {
-                returnErr(i);
+                const newErr = returnErr(i);
+
+                if (newErr) {
+                    return true;
+                }
 
                 await pool.query(
                     'INSERT INTO step (fk_recipe, step_text) VALUES($1, $2) RETURNING *',
@@ -133,7 +151,11 @@ const replaceSteps = async (recipe_id, steps, res) => {
 
         // Iterating arrays and excecuting query per object in array
         for (let i = 0; i < allSteps.rowCount - deleteStepsCount; i++) {
-            returnErr(i);
+            const newErr = returnErr(i);
+
+            if (newErr) {
+                return true;
+            }
 
             await pool.query(
                 'UPDATE step SET step_text = $1 WHERE step_id = $2',
@@ -142,8 +164,6 @@ const replaceSteps = async (recipe_id, steps, res) => {
         }
 
         for (let i = 0; i < deleteStepsCount; i++) {
-            returnErr(i);
-
             await pool.query(
                 'DELETE FROM step WHERE step_id = $1',
                 [allSteps.rows[i].step_id]

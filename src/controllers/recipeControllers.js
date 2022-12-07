@@ -213,8 +213,17 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
             );
         }
 
-        updateIngredients(ingredients, recipe_id);
-        updateSTeps(steps, recipe_id);
+        const ingredintErr = await updateIngredients(ingredients, recipe_id, res);
+
+        if (ingredintErr) {
+            return;
+        }
+
+        const stepErr = await updateSTeps(steps, recipe_id, res);
+
+        if (stepErr) {
+            return;
+        }
 
         res.send(`Recipe with id: ${recipe_id} successfully updated`);
     } catch (err) {
@@ -243,16 +252,16 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
             [recipe_name, category, recipe_id]
         );
 
-        const ingredintErr = await replaceIngredients(recipe_id, ingredients, res);
+        const ingredintErr = await replaceIngredients(recipe_id, ingredients);
 
         if (ingredintErr) {
-            return;
+            return res.status(400).send('All ingredients must have name and category');;
         }
 
-        const stepErr = await replaceSteps(recipe_id, steps, res);
+        const stepErr = await replaceSteps(recipe_id, steps);
 
         if (stepErr) {
-            return;
+            return res.status(400).send('All steps needs step text');
         }
 
         res.send(`Recipe with id: ${recipe_id} successfully updated`);

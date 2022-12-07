@@ -12,7 +12,7 @@ const pool = require('../db');
  * If ingredient id are provided it will update ingredient name and or ingredient category if provided
  * takes ingredients array and recipe id as parameter
  */
-const updateIngredients = async (ingredients, recipe_id) => {
+const updateIngredients = async (ingredients, recipe_id, res) => {
     // Checking if ingredients are provided
     if (ingredients) {
         const allIngredients = await pool.query(
@@ -27,8 +27,6 @@ const updateIngredients = async (ingredients, recipe_id) => {
         for (let i = 0; i < ingredients.length - newIngredintsCount; i++) {
             // If ingredient name provided update ingredient name with the provided id
             if (ingredients[i].ingredient_name) {
-                console.log(ingredients[i].ingredient_name);
-
                 await pool.query(
                     'UPDATE ingredient SET ingredient_name = $1 WHERE ingredient_id = $2',
                     [ingredients[i].ingredient_name, allIngredients.rows[i].ingredient_id]
@@ -47,12 +45,10 @@ const updateIngredients = async (ingredients, recipe_id) => {
         // Executing only if provided ingredients > ingredients for recipe in database
         if (newIngredintsCount > 0) {
             // Creating new ingredient for each ingredient > ingredients for recipe in database
-            for (let i = newIngredintsCount; i < newIngredintsCount + allIngredients.rowCount; i++) {
+            for (let i = allIngredients.rowCount - 1; i < allIngredients.rowCount + newIngredintsCount - 1; i++) {
                 if (!ingredients[i].ingredient_name || !ingredients[i].ingredient_category) {
                     return res.status(400).send('All new ingredients must have name and category');
                 }
-
-                console.log(ingredients[i].ingredient_name);
 
                 await pool.query(
                     'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
@@ -96,7 +92,7 @@ const updateSTeps = async (steps, recipe_id) => {
         // Executing only if provided steps > steps for recipe in database
         if (newStepsCount > 0) {
             // Creating new step for each step > steps for recipe in database
-            for (let newStepsCount = 0; i < newStepsCount + allSteps.rowCount; i++) {
+            for (let i = allSteps.rowCount - 1; i <= allSteps.rowCount - newStepsCount - 1; i++) {
                 if (!steps[i].step_text) {
                     return res.status(400).send('All steps needs step text');
                 }
