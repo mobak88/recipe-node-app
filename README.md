@@ -28,6 +28,8 @@ The application will check if the default recipes exists in the database when yo
 
 ## Endpoints
 
+You can change the port variable in app.js to change the port if you wish to.
+
 ### Available to all users
 
 The application will only show results for free recipes to user if the user are not logged in as a premium user or admin
@@ -109,6 +111,11 @@ To add a recipe send a POST request to the `/recipes` resource with a Content-Ty
 
 To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource with a with Content-Type JSON as in the example below. If you dont provide `ingredient_id` and or `step_id` a new ingredient or step will be created, if you provide it the respective ingredient and or step will get updated. It ignores everything you leave out and updates only what you provide.
 
+- recipe_name as string
+- category as string
+- ingredients as an array of objects with at least one object containing ingredient_name as string and ingredient_category as string
+- steps as an array of objects with at least one object containing step_text as string
+
 ```
 {
     "recipe_name": "rice",
@@ -132,6 +139,46 @@ To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource wi
         },
         {
             "step_id": 30,
+            "step_text": "Add salt and rice"
+        }
+    ]
+}
+```
+
+#### Replace Recipe
+
+| Name         | Request type | Endpoint                                 |
+| ------------ | ------------ | ---------------------------------------- |
+| Put a recipe | PUT          | http://localhost:8080/recipes/:recipe_id |
+
+#### Replace recipe example
+
+To replace a recipe send a PUT request to the `/recipes/:recipe_id` resource with a with Content-Type JSON as in the example below.
+
+- recipe_name as string
+- category as string
+- ingredients as an array of objects with at least one object containing ingredient_name as string and ingredient_category as string
+- steps as an array of objects with at least one object containing step_text as string
+
+```
+{
+    "recipe_name": "rice",
+    "category": "free",
+    "ingredients": [
+        {
+            "ingredient_name": "rice",
+            "ingredient_category": "rice"
+        },
+        {
+            "ingredient_name": "salt",
+            "ingredient_category": "salt"
+        }
+    ],
+    "steps": [
+        {
+            "step_text": "Boil water"
+        },
+        {
             "step_text": "Add salt and rice"
         }
     ]
