@@ -28,16 +28,21 @@ The application will check if the default recipes exists in the database when yo
 
 ## Endpoints
 
-| Name                 | Request type | Endpoint                                  | Body                                                                                                            |
-| -------------------- | ------------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Add item             | POST         | http://localhost:8080/items               | {<br /> "name": "string",<br />"category": "string",<br />"price": "number",<br />}                             |
-| Add card             | POST         | http://localhost:8080/cards               | {<br /> "card_number": "number",<br />"transaction_store": "string",<br />"transaction_place": "string",<br />} |
-| Get card             | GET          | http://localhost:8080/cards/{id}          |                                                                                                                 |
-| Get date             | GET          | http://localhost:8080/days/{date}         |                                                                                                                 |
-| Get month-year       | GET          | http://localhost:8080/days/{month}/{year} |                                                                                                                 |
-| Delete card          | DELETE       | http://localhost:8080/cards/{id}          |                                                                                                                 |
-| Get all transactions | GET          | http://localhost:8080/transactions        |
-| Get all products     | GET          | http://localhost:8080/products            |
+| Name       | Request type | Endpoint                      | Body                                                     |
+| ---------- | ------------ | ----------------------------- | -------------------------------------------------------- | --------------------------------- |
+| Add recipe | POST         | http://localhost:8080/recipes | {<br /> "recipe_name": "string",<br />"category": "free" | "premium",<br />"ingredients": [{ |
+
+            "ingredient_name": "string",<br />
+            "ingredient_category": "string"
+        }],<br />}                             |
+
+| Add card | POST | http://localhost:8080/cards | {<br /> "card_number": "number",<br />"transaction_store": "string",<br />"transaction_place": "string",<br />} |
+| Get card | GET | http://localhost:8080/cards/{id} | |
+| Get date | GET | http://localhost:8080/days/{date} | |
+| Get month-year | GET | http://localhost:8080/days/{month}/{year} | |
+| Delete card | DELETE | http://localhost:8080/cards/{id} | |
+| Get all transactions | GET | http://localhost:8080/transactions |
+| Get all products | GET | http://localhost:8080/products |
 
 ## `start`
 
