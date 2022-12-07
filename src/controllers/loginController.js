@@ -1,7 +1,7 @@
 /**
  * Login controller
  * setting cookie to premium or admin if it is provided in req.body
- * */
+*/
 
 const { premium, admin } = require('./../variables/userType');
 

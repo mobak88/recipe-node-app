@@ -1,7 +1,7 @@
 /**
  * Authorizing Middleware for admin
  * checks if user is authorized as an admin
- * */
+*/
 
 const { admin } = require('../variables/userType');
 

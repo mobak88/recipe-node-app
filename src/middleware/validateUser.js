@@ -1,7 +1,7 @@
 /**
  * Authorizing Middleware for search ingredient and search helper
  * checks if user is authorized for the endpoints
- * */
+*/
 
 const { premium, admin } = require('../variables/userType');
 

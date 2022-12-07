@@ -2,7 +2,7 @@
  * Function that checks if default recipes exists
  * If they exist it just moves on by calling next
  * If not creates default recipes
- * */
+*/
 
 const pool = require('../db');
 

@@ -14,7 +14,8 @@ router
     .route('/recipes/:recipe_id')
     .get(checkIdIsNumber, recipeController.getRecipe)
     .patch(validateAdmin, checkIdIsNumber, recipeController.updateRecipe)
-    .put(validateAdmin, checkIdIsNumber, recipeController.replaceRecipe);
+    .put(validateAdmin, checkIdIsNumber, recipeController.replaceRecipe)
+    .delete(validateAdmin, checkIdIsNumber, recipeController.deleteRecipe);
 
 router
     .route('/recipes/:recipe_id/all')

@@ -4,7 +4,7 @@
  * Creates unique arrays (sets) for ingredients and steps
  * Calls filteredIngredients passes recipe.rows and sets to it
  * Returns recipe name, ingredients and steps as an array of objects 
- * */
+*/
 
 const { filterUniqueItems } = require('./filterUniqueItems');
 

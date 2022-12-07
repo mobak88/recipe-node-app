@@ -189,10 +189,13 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
         const { recipe_id } = req.params;
         const { recipe_name, category, ingredients, steps } = req.body;
 
+
+        // CHecking if body is empty
         if (Object.keys(req.body).length === 0) {
             return res.status(204).json('No data in body');
         }
 
+        // Checking if recipe name are provided, updating if true
         if (recipe_name) {
             await pool.query(
                 'UPDATE recipe SET recipe_name = $1 WHERE recipe_id = $2',
@@ -200,6 +203,7 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
             );
         }
 
+        // Checking if category are provided, updating if true
         if (category) {
             await pool.query(
                 'UPDATE recipe SET category = $1 WHERE recipe_id = $2',
@@ -207,12 +211,19 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
             );
         }
 
+        // Checking if ingredients are provided
         if (ingredients) {
+            // Iterating ingredients array if ingredients exist
             for (let i = 0; i < ingredients.length; i++) {
+                // If ingredient does not have id, create new ingredient
                 if (!ingredients[i].ingredient_id) {
-                    return res.status(422).send();
+                    await pool.query(
+                        'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
+                        [recipe_id, ingredients[i].ingredient_name, ingredients[i].ingredient_category]
+                    );
                 }
 
+                // If ingredient name provided update ingredient name with the provided id
                 if (ingredients[i].ingredient_name) {
                     await pool.query(
                         'UPDATE ingredient SET ingredient_name = $1 WHERE ingredient_id = $2',
@@ -220,6 +231,7 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
                     );
                 }
 
+                // If ingredient category provided update ingredient name with the provided id
                 if (ingredients[i].ingredient_category) {
                     await pool.query(
                         'UPDATE ingredient SET ingredient_category = $1 WHERE ingredient_id = $2',
@@ -229,12 +241,19 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
             }
         }
 
+        // Checking if steps are provided
         if (steps) {
+            // Iterating steps array if steps exists
             for (let i = 0; i < steps.length; i++) {
+                // If step does not have id, create new step
                 if (!steps[i].step_id) {
-                    return res.status(422).json('Please provide id for step');
+                    await pool.query(
+                        'INSERT INTO step (fk_recipe, step_text) VALUES($1, $2) RETURNING *',
+                        [recipe_id, steps[i].step_text]
+                    );
                 }
 
+                // If step text provided update step text with the provided id
                 if (steps[i].step_text) {
                     await pool.query(
                         'UPDATE step SET step_text = $1 WHERE step_id = $2',
@@ -254,13 +273,16 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
 // Replace recipe
 exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
     try {
+        const { replaceIngredients, replaceSteps } = require('./../utils/replaceRecipe');
         const { recipe_id } = req.params;
         const { recipe_name, category, ingredients, steps } = req.body;
 
-        const returnErrStatus = errorHandlers.checkPostRecipe(res, recipe_name, category, ingredients, steps);
+        if (!recipe_name) {
+            return res.status(400).send('Cant delete recipe name because of relations');
+        }
 
-        if (returnErrStatus) {
-            return;
+        if (!category || category !== free && category !== premium) {
+            return res.status(400).send('Recipe category must be spesified as free or premium');
         }
 
         await pool.query(
@@ -268,20 +290,45 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
             [recipe_name, category, recipe_id]
         );
 
-        // Iterating arrays and excecuting query per object in array
-        for (let i = 0; i < ingredients.length; i++) {
-            await pool.query(
-                'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
-                [newRecipe.rows[0].recipe_id, ingredients[i].ingredient_name, ingredients[i].ingredient_category]
-            );
+        const ingredintErr = await replaceIngredients(recipe_id, ingredients, res);
+
+        if (ingredintErr) {
+            return;
         }
 
+        const stepErr = await replaceSteps(recipe_id, steps, res);
+
+        if (stepErr) {
+            return;
+        }
+
+        res.send(`Recipe with id: ${recipe_id} successfully updated`);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+exports.deleteRecipe = ('/recipes/:recipe_id', async (req, res) => {
+    try {
+        const { recipe_id } = req.params;
+
         await pool.query(
-            'UPDATE ingredient SET recipe_name = $1, category = $2 WHERE recipe_id = $3',
-            [recipe_name, category, recipe_id]
+            'DELETE FROM ingredient WHERE fk_recipe = $1',
+            [recipe_id]
         );
 
-        res.send(req.body);
+        await pool.query(
+            'DELETE FROM step WHERE fk_recipe = $1',
+            [recipe_id]
+        );
+
+        await pool.query(
+            'DELETE FROM recipe WHERE recipe_id = $1',
+            [recipe_id]
+        );
+
+        res.send(`Recipe with id: ${recipe_id} successfully deleted`);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

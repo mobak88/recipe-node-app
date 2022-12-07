@@ -1,7 +1,7 @@
 /**
  * Middleware that checks if params is number and exists
  * Calls next if conditions are met
- * */
+*/
 
 const checkIdIsNumber = (req, res, next) => {
     const { recipe_id, step_id } = req.params;

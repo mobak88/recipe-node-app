@@ -17,7 +17,7 @@ exports.checkIdExists = (item, res) => {
  * Takes response, recipe name, category ingredients and steps as parameters
  * Returns response with error code and message
  * Its not very reusable, it exists to not clutter the controller
- * */
+*/
 exports.checkPostRecipe = (res, recipe_name, category, ingredients, steps) => {
     if (!recipe_name) {
         return res.status(400).send('Recipe name missing');
