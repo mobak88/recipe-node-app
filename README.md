@@ -12,11 +12,13 @@ Open your terminal
 
 ### Conect to PSQL
 
-Paste `psql -U postgres`
+Paste psql -U postgres
 
-````sh
+```sh
 cargo install sniffnet
-``` to connect to PSQL
+```
+
+to connect to PSQL
 
 ### Conect to a DATABASE
 
@@ -228,3 +230,4 @@ To delete a recipe send a DELETE request to the `/recipes/:recipe_id` resource. 
 - pg: PostgreSQL client for Node.js. [Read more about pg](https://github.com/brianc/node-postgres)
 - cookie-parser: Parse Cookie header and populate `req.cookies`. [Read more about cookie-parser](https://www.npmjs.com/package/cookie-parser)
 ```
+````
