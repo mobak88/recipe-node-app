@@ -29,6 +29,28 @@ Paste in `\c + DATABASE name` to connect to database. If you copied the database
 ### Create tables
 
 After you have created the database, copy the schema from database.sql file, everything except for the first line that creates the database, then paste it to your terminal while being conntected to the database. You need to be connected to the database at all times when you request resources from it.
+Tables schema:
+
+```sh
+CREATE TABLE recipe(
+    recipe_id SERIAL PRIMARY KEY,
+    recipe_name VARCHAR(255) NOT NULL,
+    category VARCHAR(255) CHECK (category in ('free', 'premium')) NOT NULL
+);
+
+CREATE TABLE ingredient(
+    ingredient_id SERIAL PRIMARY KEY,
+    fk_recipe INT REFERENCES recipe (recipe_id) NOT NULL,
+    ingredient_name VARCHAR(255) NOT NULL,
+    ingredient_category VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE step(
+    step_id SERIAL PRIMARY KEY,
+    fk_recipe INT REFERENCES recipe (recipe_id) NOT NULL,
+    step_text TEXT NOT NULL
+);
+```
 
 ## `start`
 
