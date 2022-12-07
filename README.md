@@ -32,8 +32,8 @@ The application will check if the default recipes exists in the database when yo
 
 The application will only show results for free recipes to user if the user are not logged in as a premium user or admin
 
-| Name                        | Request type | Endpoint                              | Body |
-| --------------------------- | ------------ | ------------------------------------- | ---- |
+| Name                        | Request type | Endpoint                              |
+| --------------------------- | ------------ | ------------------------------------- |
 | Get all recipes             | GET          | http://localhost:8080/recipes         |
 | Get recipe                  | GET          | http://localhost:8080/{recipe_id}     |
 | Get recipe with all details | GET          | http://localhost:8080/{recipe_id}/all |
@@ -52,15 +52,15 @@ To login send POST request with a user type and `admin` or `premium`:
 
 ### Available to premium users and admin
 
-| Name                            | Request type | Endpoint                                  | Body |
-| ------------------------------- | ------------ | ----------------------------------------- | ---- |
+| Name                            | Request type | Endpoint                                  |
+| ------------------------------- | ------------ | ----------------------------------------- |
 | Get all recipes with ingredient | GET          | http://localhost:8080/search/{ingredient} |
 | Get list all ingredients        | GET          | http://localhost:8080/ingredients         |
 
 ### Available admin
 
-| Name                        | Request type | Endpoint                              | Body |
-| --------------------------- | ------------ | ------------------------------------- | ---- |
+| Name                        | Request type | Endpoint                              |
+| --------------------------- | ------------ | ------------------------------------- |
 | Post all recipes            | GET          | http://localhost:8080/login           |
 | Get recipe                  | GET          | http://localhost:8080/{recipe_id}     |
 | Get recipe with all details | GET          | http://localhost:8080/{recipe_id}/all |
