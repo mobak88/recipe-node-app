@@ -63,9 +63,9 @@ To login send POST request to the `/login` resource with a `user_type` and `admi
 
 #### Add recipe
 
-| Name          | Request type | Endpoint                       |
-| ------------- | ------------ | ------------------------------ |
-| Post a recipe | POST         | http://localhost:8080//recipes |
+| Name          | Request type | Endpoint                      |
+| ------------- | ------------ | ----------------------------- |
+| Post a recipe | POST         | http://localhost:8080/recipes |
 
 To add a recipe send a POST request to the `/recipes` resource with a Content-Type JSON as in the example below. You must provide:
 
@@ -184,6 +184,14 @@ To replace a recipe send a PUT request to the `/recipes/:recipe_id` resource wit
     ]
 }
 ```
+
+#### Delete recipe
+
+To delete a recipe send a DELETE request to the `/recipes/:recipe_id` resource. It will delete the recipe and all ingredients and steps related to it.
+
+| Name            | Request type | Endpoint                                 |
+| --------------- | ------------ | ---------------------------------------- |
+| Delete a recipe | DELETE       | http://localhost:8080/recipes/:recipe_id |
 
 ## `start`
 
