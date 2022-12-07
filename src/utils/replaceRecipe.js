@@ -1,7 +1,8 @@
 /**
  * Extracted logic to function because it made the controller huge
- * could have used callback function for returning error and made them one function,
- * but many people dont like callbacks so I just made two functions
+ * could have used callback function for returning error comnined with 
+ * brackets to be able to set object keys as parameters and made them one function,
+ * but many people dont like callbacks
  */
 
 /**
