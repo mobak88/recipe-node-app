@@ -59,11 +59,13 @@ To login send POST request to the `/login` resource with a `user_type` and `admi
 
 ### Available to admin
 
+#### Add recipe
+
 | Name          | Request type | Endpoint                       |
 | ------------- | ------------ | ------------------------------ |
 | Post a recipe | POST         | http://localhost:8080//recipes |
 
-#### Add recipe example
+##### Add recipe example
 
 To add a recipe send a POST request to the /recipes resource with a with Content-Type JSON as in the example below. You must provide:
 
