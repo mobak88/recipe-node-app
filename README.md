@@ -22,6 +22,17 @@ Open your terminal
 
 After you have created the database, copy the schema from database.sql file, everything except for the first line that creates the database, then paste it to your terminal while being conntected to the database. You need to be connected to the database at all times when you request resources from it.
 
+## `start`
+
+You need to be in the root folder or change the start command to fit where you want to start it from.
+Start the server.
+
+```
+npm run start
+# or
+yarn start
+```
+
 ## Default data
 
 The application will check if the default recipes exists in the database when you start the server and create them from defaultRecipes.json if they do not exist
@@ -192,17 +203,6 @@ To delete a recipe send a DELETE request to the `/recipes/:recipe_id` resource. 
 | Name            | Request type | Endpoint                                 |
 | --------------- | ------------ | ---------------------------------------- |
 | Delete a recipe | DELETE       | http://localhost:8080/recipes/:recipe_id |
-
-## `start`
-
-You need to be in the root folder or change the start command to fit where you want to start it from.
-Start the server.
-
-```
-npm run start
-# or
-yarn start
-```
 
 ## External packages
 
