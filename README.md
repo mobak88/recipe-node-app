@@ -14,7 +14,7 @@ Open your terminal
 
 Paste in `psql -U postgres` to connect to PSQL
 
-```sh
+```
 psql -U postgres
 ```
 
@@ -22,7 +22,7 @@ psql -U postgres
 
 Paste in `\c + DATABASE name` to connect to database. If you copied the database name from the schema paste code below to connext to the database:
 
-```sh
+```
 \c recipes_system;
 ```
 
@@ -31,7 +31,7 @@ Paste in `\c + DATABASE name` to connect to database. If you copied the database
 After you have created the database, copy the schema from database.sql file, everything except for the first line that creates the database, then paste it to your terminal while being conntected to the database. You need to be connected to the database at all times when you request resources from it.  
 Tables schema:
 
-```sh
+```
 CREATE TABLE recipe(
     recipe_id SERIAL PRIMARY KEY,
     recipe_name VARCHAR(255) NOT NULL,
