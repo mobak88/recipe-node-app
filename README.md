@@ -18,6 +18,14 @@ Paste in `psql -U postgres` to connect to PSQL
 psql -U postgres
 ```
 
+### Create database
+
+Paste in `CREATE DATABASE recipes_system` to connect to PSQL
+
+```
+CREATE DATABASE recipes_system;
+```
+
 ### Conect to a DATABASE
 
 Paste in `\c + DATABASE name` to connect to database. If you copied the database name from the schema paste code below to connext to the database:
