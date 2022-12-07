@@ -28,16 +28,33 @@ The application will check if the default recipes exists in the database when yo
 
 ## Endpoints
 
-| Name                 | Request type | Endpoint                                  | Body                                                                                                            |
-| -------------------- | ------------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Add recipe           | POST         | http://localhost:8080/recipes             | {<br /> "recipe_name": "string",<br />"category": "string",<br />"price": "number",<br />}                      |
-| Add card             | POST         | http://localhost:8080/cards               | {<br /> "card_number": "number",<br />"transaction_store": "string",<br />"transaction_place": "string",<br />} |
-| Get card             | GET          | http://localhost:8080/cards/{id}          |                                                                                                                 |
-| Get date             | GET          | http://localhost:8080/days/{date}         |                                                                                                                 |
-| Get month-year       | GET          | http://localhost:8080/days/{month}/{year} |                                                                                                                 |
-| Delete card          | DELETE       | http://localhost:8080/cards/{id}          |                                                                                                                 |
-| Get all transactions | GET          | http://localhost:8080/transactions        |
-| Get all products     | GET          | http://localhost:8080/products            |
+### Available to all users
+
+The application will only show results for free recipes to user if the user are not logged in as a premium user or admin
+
+| Name                        | Request type | Endpoint                              | Body |
+| --------------------------- | ------------ | ------------------------------------- | ---- |
+| Get all recipes             | GET          | http://localhost:8080/recipes         |
+| Get recipe                  | GET          | http://localhost:8080/{recipe_id}     |
+| Get recipe with all details | GET          | http://localhost:8080/{recipe_id}/all |
+| Get single step             | GET          | http://localhost:8080/{step_id}       |
+| Get login                   | GET          | http://localhost:8080/login           |
+
+### Available to premium users and admin
+
+| Name                            | Request type | Endpoint                                  | Body |
+| ------------------------------- | ------------ | ----------------------------------------- | ---- |
+| Get all recipes with ingredient | GET          | http://localhost:8080/search/{ingredient} |
+| Get list all ingredients        | GET          | http://localhost:8080/ingredients         |
+
+### Available admin
+
+| Name                        | Request type | Endpoint                              | Body |
+| --------------------------- | ------------ | ------------------------------------- | ---- |
+| Post all recipes            | GET          | http://localhost:8080/login           |
+| Get recipe                  | GET          | http://localhost:8080/{recipe_id}     |
+| Get recipe with all details | GET          | http://localhost:8080/{recipe_id}/all |
+| Get single step             | GET          | http://localhost:8080/{step_id}       |
 
 ## `start`
 
