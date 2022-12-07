@@ -4,7 +4,7 @@ API for recipe system
 
 You need psql installed on your machine to run the database and change the password in db.js to your password.  
 Download PostgreSQL [Here](https://www.postgresql.org/download/)  
-The recipe for creating database and tables can be found in [Here](https://github.com/mobak88/purchase-tracking-system/blob/main/database.sql)
+The schema for creating database and tables can be found in [Here](https://github.com/mobak88/recipe-node-app/blob/main/database.sql)
 
 ## Connect to database
 
@@ -17,6 +17,14 @@ Open your terminal
 ### Conect to a DATABASE
 
 `\c + DATABASE name`
+
+### Create tables
+
+After you have created the database, copy the schema from database.sql file, everything except for the first line that creates the database, then paste it to your terminal while being conntected to the database. You need to be connected to the database at all times when you request resources from it.
+
+## Default data
+
+The application will check if the default recipes exists in the database when you start the server and create them from defaultRecipes.json if they do not exist
 
 ## Endpoints
 
