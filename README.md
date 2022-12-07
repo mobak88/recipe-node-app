@@ -15,7 +15,7 @@ Open your terminal
 Paste psql -U postgres
 
 ```sh
-cargo install sniffnet
+psql -U postgres
 ```
 
 to connect to PSQL
