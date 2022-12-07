@@ -1,7 +1,7 @@
 /**
  * Extracted logic to function because it made the controller huge
- * could have used callback function for returning error comnined with 
- * brackets to be able to set object keys as parameters and made them one function,
+ * could have used callback function for returning error comnbined with 
+ * brackets to be able to set object keys as parameters and make them one function,
  * but many people dont like callbacks
  */
 
