@@ -29,8 +29,8 @@ The application will check if the default recipes exists in the database when yo
 ## Endpoints
 
 | Name                 | Request type | Endpoint                                  | Body                                                                                                            |
-| -------------------- | ------------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| Add recipe           | POST         | http://localhost:8080/recipes             | {<br /> "recipe_name": "string",<br />"category": "free"                                                        | "premium",<br />"ingredients": ,<br />} |
+| -------------------- | ------------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Add recipe           | POST         | http://localhost:8080/recipes             | {<br /> "recipe_name": "string",<br />"category": "string",<br />"price": "number",<br />}                      |
 | Add card             | POST         | http://localhost:8080/cards               | {<br /> "card_number": "number",<br />"transaction_store": "string",<br />"transaction_place": "string",<br />} |
 | Get card             | GET          | http://localhost:8080/cards/{id}          |                                                                                                                 |
 | Get date             | GET          | http://localhost:8080/days/{date}         |                                                                                                                 |
