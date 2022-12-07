@@ -28,7 +28,7 @@ Paste in `\c + DATABASE name` to connect to database. If you copied the database
 
 ### Create tables
 
-After you have created the database, copy the schema from database.sql file, everything except for the first line that creates the database, then paste it to your terminal while being conntected to the database. You need to be connected to the database at all times when you request resources from it.
+After you have created the database, copy the schema from database.sql file, everything except for the first line that creates the database, then paste it to your terminal while being conntected to the database. You need to be connected to the database at all times when you request resources from it.  
 Tables schema:
 
 ```sh
