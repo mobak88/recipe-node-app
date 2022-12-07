@@ -200,7 +200,7 @@ To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource wi
 | ------------ | ------------ | ---------------------------------------- |
 | Put a recipe | PUT          | http://localhost:8080/recipes/:recipe_id |
 
-To replace a recipe send a PUT request to the `/recipes/:recipe_id` resource with a with Content-Type JSON as in the example below.
+To replace a recipe send a PUT request to the `/recipes/:recipe_id` resource with a Content-Type JSON as in the example below.
 
 - recipe_name as string
 - category as string must be either `free` or `premium`
