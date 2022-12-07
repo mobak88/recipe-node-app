@@ -19,7 +19,7 @@ exports.structureRecipe = (recipe) => {
 
     //Return array of objects with unique objects
     const ingredients = filteredIngredients.map(ing => {
-        return { entry: ing.ingredient_name, type: ing.ingredient_category };
+        return { ingredient_id: ing.ingredient_id, entry: ing.ingredient_name, type: ing.ingredient_category };
     });
 
     const steps = filteredSteps.map(step => {

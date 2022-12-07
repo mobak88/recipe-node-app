@@ -189,6 +189,98 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
         const { recipe_id } = req.params;
         const { recipe_name, category, ingredients, steps } = req.body;
 
+        if (Object.keys(req.body).length === 0) {
+            return res.status(204).json('No data in body');
+        }
+
+        if (recipe_name) {
+            await pool.query(
+                'UPDATE recipe SET recipe_name = $1 WHERE recipe_id = $2',
+                [recipe_name, recipe_id]
+            );
+        }
+
+        if (category) {
+            await pool.query(
+                'UPDATE recipe SET category = $1 WHERE recipe_id = $2',
+                [category, recipe_id]
+            );
+        }
+
+        if (ingredients) {
+            for (let i = 0; i < ingredients.length; i++) {
+                if (!ingredients[i].ingredient_id) {
+                    return res.status(422).send();
+                }
+
+                if (ingredients[i].ingredient_name) {
+                    await pool.query(
+                        'UPDATE ingredient SET ingredient_name = $1 WHERE ingredient_id = $2',
+                        [ingredients[i].ingredient_name, ingredients[i].ingredient_id]
+                    );
+                }
+
+                if (ingredients[i].ingredient_category) {
+                    await pool.query(
+                        'UPDATE ingredient SET ingredient_category = $1 WHERE ingredient_id = $2',
+                        [ingredients[i].ingredient_category, ingredients[i].ingredient_id]
+                    );
+                }
+            }
+        }
+
+        if (steps) {
+            for (let i = 0; i < steps.length; i++) {
+                if (!steps[i].step_id) {
+                    return res.status(422).json('Please provide id for step');
+                }
+
+                if (steps[i].step_text) {
+                    await pool.query(
+                        'UPDATE step SET step_text = $1 WHERE step_id = $2',
+                        [steps[i].step_text, steps[i].step_id]
+                    );
+                }
+            }
+        }
+
+        res.send(`Recipe with id: ${recipe_id} successfully updated`);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Replace recipe
+exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
+    try {
+        const { recipe_id } = req.params;
+        const { recipe_name, category, ingredients, steps } = req.body;
+
+        const returnErrStatus = errorHandlers.checkPostRecipe(res, recipe_name, category, ingredients, steps);
+
+        if (returnErrStatus) {
+            return;
+        }
+
+        await pool.query(
+            'UPDATE recipe SET recipe_name = $1, category = $2 WHERE recipe_id = $3',
+            [recipe_name, category, recipe_id]
+        );
+
+        // Iterating arrays and excecuting query per object in array
+        for (let i = 0; i < ingredients.length; i++) {
+            await pool.query(
+                'INSERT INTO ingredient (fk_recipe, ingredient_name, ingredient_category) VALUES($1, $2, $3) RETURNING *',
+                [newRecipe.rows[0].recipe_id, ingredients[i].ingredient_name, ingredients[i].ingredient_category]
+            );
+        }
+
+        await pool.query(
+            'UPDATE ingredient SET recipe_name = $1, category = $2 WHERE recipe_id = $3',
+            [recipe_name, category, recipe_id]
+        );
+
         res.send(req.body);
     } catch (err) {
         console.error(err.message);

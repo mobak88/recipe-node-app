@@ -13,7 +13,8 @@ router
 router
     .route('/recipes/:recipe_id')
     .get(checkIdIsNumber, recipeController.getRecipe)
-    .patch(validateAdmin, checkIdIsNumber, recipeController.updateRecipe);
+    .patch(validateAdmin, checkIdIsNumber, recipeController.updateRecipe)
+    .put(validateAdmin, checkIdIsNumber, recipeController.replaceRecipe);
 
 router
     .route('/recipes/:recipe_id/all')
