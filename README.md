@@ -31,12 +31,10 @@ After you have created the database, copy the schema from database.sql file, eve
 You need to be in the root folder or change the start command to fit where you want to start it from.
 Start the server.
 
+```
 npm run start
-
 # or
-
 yarn start
-
 ```
 
 ## Default data
@@ -64,11 +62,9 @@ The application will only show results for free recipes to user if the user are 
 To login send POST request to the `/login` resource with a `user_type` and `admin` as string or `user_type` and `premium` as string with Content-Type JSON, you get authorized to the respective resourses after logging in. Login are cookies, remove cookie `user_type` to logout
 
 ```
-
 {
-"user_type": "admin"
+    "user_type": "admin"
 }
-
 ```
 
 ### Available to premium users and admin
@@ -96,30 +92,28 @@ To add a recipe send a POST request to the `/recipes` resource with a Content-Ty
 #### Add recipe example
 
 ```
-
 {
-"recipe_name": "rice",
-"category": "free",
-"ingredients": [
-{
-"ingredient_name": "rice",
-"ingredient_category": "rice"
-},
-{
-"ingredient_name": "salt",
-"ingredient_category": "salt"
+    "recipe_name": "rice",
+    "category": "free",
+    "ingredients": [
+        {
+            "ingredient_name": "rice",
+            "ingredient_category": "rice"
+        },
+        {
+            "ingredient_name": "salt",
+            "ingredient_category": "salt"
+        }
+    ],
+    "steps": [
+        {
+            "step_text": "Boil water"
+        },
+        {
+            "step_text": "Add salt and rice"
+        }
+    ]
 }
-],
-"steps": [
-{
-"step_text": "Boil water"
-},
-{
-"step_text": "Add salt and rice"
-}
-]
-}
-
 ```
 
 #### Update Recipe
@@ -138,34 +132,32 @@ To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource wi
 #### Update recipe example
 
 ```
-
 {
-"recipe_name": "rice",
-"category": "free",
-"ingredients": [
-{
-"ingredient_id": 40,
-"ingredient_name": "rice",
-"ingredient_category": "rice"
-},
-{
-"ingredient_id": 41,
-"ingredient_name": "salt",
-"ingredient_category": "salt"
+    "recipe_name": "rice",
+    "category": "free",
+    "ingredients": [
+        {
+            "ingredient_id": 40,
+            "ingredient_name": "rice",
+            "ingredient_category": "rice"
+        },
+        {
+            "ingredient_id": 41,
+            "ingredient_name": "salt",
+            "ingredient_category": "salt"
+        }
+    ],
+    "steps": [
+        {
+            "step_id": 30,
+            "step_text": "Boil water"
+        },
+        {
+            "step_id": 30,
+            "step_text": "Add salt and rice"
+        }
+    ]
 }
-],
-"steps": [
-{
-"step_id": 30,
-"step_text": "Boil water"
-},
-{
-"step_id": 30,
-"step_text": "Add salt and rice"
-}
-]
-}
-
 ```
 
 #### Replace Recipe
@@ -184,30 +176,28 @@ To replace a recipe send a PUT request to the `/recipes/:recipe_id` resource wit
 #### Replace recipe example
 
 ```
-
 {
-"recipe_name": "rice",
-"category": "free",
-"ingredients": [
-{
-"ingredient_name": "rice",
-"ingredient_category": "rice"
-},
-{
-"ingredient_name": "salt",
-"ingredient_category": "salt"
+    "recipe_name": "rice",
+    "category": "free",
+    "ingredients": [
+        {
+            "ingredient_name": "rice",
+            "ingredient_category": "rice"
+        },
+        {
+            "ingredient_name": "salt",
+            "ingredient_category": "salt"
+        }
+    ],
+    "steps": [
+        {
+            "step_text": "Boil water"
+        },
+        {
+            "step_text": "Add salt and rice"
+        }
+    ]
 }
-],
-"steps": [
-{
-"step_text": "Boil water"
-},
-{
-"step_text": "Add salt and rice"
-}
-]
-}
-
 ```
 
 #### Delete recipe
@@ -225,4 +215,3 @@ To delete a recipe send a DELETE request to the `/recipes/:recipe_id` resource. 
 - dotenv: Loads environment variables from a .env file into process.env. [Read more about dotenv](https://www.npmjs.com/package/dotenv)
 - pg: PostgreSQL client for Node.js. [Read more about pg](https://github.com/brianc/node-postgres)
 - cookie-parser: Parse Cookie header and populate `req.cookies`. [Read more about cookie-parser](https://www.npmjs.com/package/cookie-parser)
-```
