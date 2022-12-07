@@ -67,7 +67,7 @@ To login send POST request to the `/login` resource with a `user_type` and `admi
 
 #### Add recipe example
 
-To add a recipe send a POST request to the /recipes resource with a with Content-Type JSON as in the example below. You must provide:
+To add a recipe send a POST request to the `/recipes` resource with a Content-Type JSON as in the example below. You must provide:
 
 - recipe_name as string
 - category as string
@@ -93,6 +93,45 @@ To add a recipe send a POST request to the /recipes resource with a with Content
             "step_text": "Boil water"
         },
         {
+            "step_text": "Add salt and rice"
+        }
+    ]
+}
+```
+
+#### Update Recipe
+
+| Name           | Request type | Endpoint                                 |
+| -------------- | ------------ | ---------------------------------------- |
+| Patch a recipe | PATCH        | http://localhost:8080/recipes/:recipe_id |
+
+#### Update recipe example
+
+To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource with a with Content-Type JSON as in the example below. If you dont provide `ingredient_id` and or `step_id` a new ingredient or step will be created, if you provide it the respective ingredient and or step will get updated. It ignores everything you leave out and updates only what you provide.
+
+```
+{
+    "recipe_name": "rice",
+    "category": "free",
+    "ingredients": [
+        {
+            "ingredient_id": 40,
+            "ingredient_name": "rice",
+            "ingredient_category": "rice"
+        },
+        {
+            "ingredient_id": 41,
+            "ingredient_name": "salt",
+            "ingredient_category": "salt"
+        }
+    ],
+    "steps": [
+        {
+            "step_id": 30,
+            "step_text": "Boil water"
+        },
+        {
+            "step_id": 30,
             "step_text": "Add salt and rice"
         }
     ]
