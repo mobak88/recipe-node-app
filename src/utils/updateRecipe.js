@@ -4,6 +4,14 @@
 
 const pool = require('../db');
 
+/**
+ * check if ingredients array are provided
+ * if ingredients array are provied iterates ingredient array
+ * checks if ingredient object contains ingredient id
+ * If ingredient object does not have id, creates new ingredient
+ * If ingredient id are provided it will update ingredient name and or ingredient category if provided
+ * takes ingredients array and recipe id as parameter
+ */
 const updateIngredients = async (ingredients, recipe_id) => {
     // Checking if ingredients are provided
     if (ingredients) {
@@ -36,6 +44,14 @@ const updateIngredients = async (ingredients, recipe_id) => {
     }
 };
 
+/**
+ * check if steps array are provided
+ * if steps array are provied iterates steps array
+ * checks if step object contains step id
+ * If steps object does not have id, creates new step
+ * If step id are provided it will update step text
+ * takes steps array and recipe id as parameter
+ */
 const updateSTeps = async (steps, recipe_id) => {
     // Checking if steps are provided
     if (steps) {
