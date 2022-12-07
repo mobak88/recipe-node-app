@@ -40,6 +40,16 @@ The application will only show results for free recipes to user if the user are 
 | Get single step             | GET          | http://localhost:8080/{step_id}       |
 | Post login                  | POST         | http://localhost:8080/login           |
 
+#### Login example
+
+To login send POST request with a user type and `admin` or `premium`:
+
+```
+{
+    "user_type": "admin"
+}
+```
+
 ### Available to premium users and admin
 
 | Name                            | Request type | Endpoint                                  | Body |
