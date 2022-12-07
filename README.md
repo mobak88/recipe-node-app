@@ -38,7 +38,7 @@ The application will only show results for free recipes to user if the user are 
 | Get recipe                  | GET          | http://localhost:8080/{recipe_id}     |
 | Get recipe with all details | GET          | http://localhost:8080/{recipe_id}/all |
 | Get single step             | GET          | http://localhost:8080/{step_id}       |
-| Get login                   | GET          | http://localhost:8080/login           |
+| Post login                  | POST         | http://localhost:8080/login           |
 
 ### Available to premium users and admin
 
