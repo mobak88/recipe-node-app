@@ -2,7 +2,7 @@
 
 API for recipe system
 
-You need psql installed on your machine to run the database and change the password variable in db.js to your password.  
+You need psql installed on your machine to run the database and change the password variable in db.js to the password you set when you installed postgres.  
 Download PostgreSQL [Here](https://www.postgresql.org/download/)  
 The schema for creating database and tables can be found in [Here](https://github.com/mobak88/recipe-node-app/blob/main/database.sql)
 
