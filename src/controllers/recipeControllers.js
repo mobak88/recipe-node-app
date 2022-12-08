@@ -67,7 +67,7 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
     }
 });
 
-//Get a recipe with step details
+//Get a recipe with step all details
 exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
     try {
         const { recipe_id } = req.params;
@@ -109,7 +109,7 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
 });
 
 // Get single step by step_id
-exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
+exports.getSingleStepById = ('/recipes/:recipe_id/:step_id', async (req, res) => {
     try {
         const { recipe_id, step_id } = req.params;
         const user = req.cookies.user_type;
@@ -117,25 +117,22 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
         let steps;
         // Checking if user are premium or admin, making sql query acording to Authorization
         if (user === premium || user === admin) {
-            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1', [recipe_id]);
+            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2', [recipe_id, step_id]);
         } else {
-            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
+            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3', [recipe_id, step_id, free]);
         }
 
-        console.log(steps.rows);
-
         // If step_id > steps.rowCount then step dont exist. id starts at 1, 0 does not exist
-        if (step_id > steps.rowCount || step_id === 0) {
+        if (steps.rowCount === 0 || step_id === 0) {
             res.status(404).json('Step does not exist');
             return;
         }
 
-        const text = steps.rows[step_id - 1].step_text.replaceAll('/', ' or ');
+        const text = steps.rows[0].step_text.replaceAll('/', ' or ');
 
         const data = {
             step: {
-                step_id: steps.rows[step_id - 1].step_id,
-                step_number: parseInt(step_id),
+                step_id: steps.rows[0].step_id,
                 text: text,
                 recipe: {
                     recipe_id: steps.rows[0].recipe_id,

@@ -22,7 +22,12 @@ router
     .get(checkIdIsNumber, recipeController.getAllRecipeDetails);
 
 router
+    .route('/recipes/:recipe_id/:step_id')
+    .get(checkIdIsNumber, recipeController.getSingleStepById);
+
+router
     .route('/recipes/:recipe_id/steps/:step_count')
     .get(checkIdIsNumber, recipeController.getSingleStepByCount);
+
 
 module.exports = router;
