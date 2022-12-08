@@ -60,6 +60,16 @@ CREATE TABLE step(
 );
 ```
 
+## `install`
+
+This command installs the packages that the project depends on.
+
+```
+npm install
+# or
+yarn install
+```
+
 ## `start`
 
 You need to be in the root folder or change the start command to fit where you want to start it from.  
