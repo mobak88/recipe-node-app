@@ -11,7 +11,7 @@ exports.createDefaultRecipes = (async () => {
         const defaultFreeRecipes = require('../defaultRecipes.json');
         const recipes = await pool.query('SELECT * FROM recipe');
 
-        if (recipes.rows.length < defaultFreeRecipes.length) {
+        if (recipes.rowCount < defaultFreeRecipes.length) {
             for (let index = 0; index < defaultFreeRecipes.length; index++) {
                 await pool.query(
                     'INSERT INTO recipe (recipe_name, category) VALUES($1, $2) RETURNING *',

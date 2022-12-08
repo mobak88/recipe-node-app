@@ -45,7 +45,7 @@ const updateIngredients = async (ingredients, recipe_id, res) => {
         // Executing only if provided ingredients > ingredients for recipe in database
         if (newIngredintsCount > 0) {
             // Creating new ingredient for each ingredient > ingredients for recipe in database
-            for (let i = allIngredients.rowCount - 1; i < allIngredients.rowCount + newIngredintsCount - 1; i++) {
+            for (let i = allIngredients.rowCount; i < allIngredients.rowCount + newIngredintsCount; i++) {
                 if (!ingredients[i].ingredient_name || !ingredients[i].ingredient_category) {
                     return res.status(400).send('All new ingredients must have name and category');
                 }
@@ -92,7 +92,7 @@ const updateSTeps = async (steps, recipe_id) => {
         // Executing only if provided steps > steps for recipe in database
         if (newStepsCount > 0) {
             // Creating new step for each step > steps for recipe in database
-            for (let i = allSteps.rowCount - 1; i <= allSteps.rowCount - newStepsCount - 1; i++) {
+            for (let i = allSteps.rowCount; i <= allSteps.rowCount - newStepsCount; i++) {
                 if (!steps[i].step_text) {
                     return res.status(400).send('All steps needs step text');
                 }
