@@ -231,6 +231,18 @@ exports.updateRecipe = ('/recipes/:recipe_id', async (req, res) => {
         const { recipe_name, category, ingredients, steps } = req.body;
         const { updateIngredients, updateSTeps } = require('./../utils/updateRecipe');
 
+        const recipe = await pool.query(
+            'SELECT * from recipe WHERE recipe_id = $1',
+            [recipe_id]
+        );
+
+        const returnErrStatus = errorHandlers.checkIdExists(recipe, res);
+
+        // Returning if error exist
+        if (returnErrStatus) {
+            return;
+        }
+
 
         // Checking if body is empty
         if (Object.keys(req.body).length === 0) {
@@ -279,6 +291,18 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
         const { recipe_id } = req.params;
         const { recipe_name, category, ingredients, steps } = req.body;
 
+        const recipe = await pool.query(
+            'SELECT * from recipe WHERE recipe_id = $1',
+            [recipe_id]
+        );
+
+        const returnErrStatus = errorHandlers.checkIdExists(recipe, res);
+
+        // Returning if error exist
+        if (returnErrStatus) {
+            return;
+        }
+
         if (!recipe_name) {
             return res.status(400).send('Cant delete recipe name because of relations');
         }
@@ -314,6 +338,18 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
 exports.deleteRecipe = ('/recipes/:recipe_id', async (req, res) => {
     try {
         const { recipe_id } = req.params;
+
+        const recipe = await pool.query(
+            'SELECT * from recipe WHERE recipe_id = $1',
+            [recipe_id]
+        );
+
+        const returnErrStatus = errorHandlers.checkIdExists(recipe, res);
+
+        // Returning if error exist
+        if (returnErrStatus) {
+            return;
+        }
 
         await pool.query(
             'DELETE FROM ingredient WHERE fk_recipe = $1',
