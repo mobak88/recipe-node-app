@@ -66,7 +66,11 @@ This command installs the packages that the project depends on.
 
 ```
 npm install
+```
+
 # or
+
+```
 yarn install
 ```
 
@@ -77,7 +81,11 @@ Start the server:
 
 ```
 npm run start
+```
+
 # or
+
+```
 yarn start
 ```
 
