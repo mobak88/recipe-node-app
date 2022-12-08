@@ -119,8 +119,10 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
         if (user === premium || user === admin) {
             steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1', [recipe_id]);
         } else {
-            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND step_id = $2 AND category = $3', [recipe_id, step_id, free]);
+            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
         }
+
+        console.log(steps.rows);
 
         // If step_id > steps.rowCount then step dont exist. id starts at 1, 0 does not exist
         if (step_id > steps.rowCount || step_id === 0) {
