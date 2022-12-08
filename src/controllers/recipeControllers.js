@@ -335,6 +335,7 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
     }
 });
 
+// Delete recipe
 exports.deleteRecipe = ('/recipes/:recipe_id', async (req, res) => {
     try {
         const { recipe_id } = req.params;
