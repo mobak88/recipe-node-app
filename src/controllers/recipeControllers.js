@@ -108,7 +108,7 @@ exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
     }
 });
 
-// Get single step
+// Get single step by step_id
 exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
     try {
         const { recipe_id, step_id } = req.params;
@@ -136,6 +136,47 @@ exports.getSingleStep = ('/recipes/:recipe_id/:step_id', async (req, res) => {
             step: {
                 step_id: steps.rows[step_id - 1].step_id,
                 step_number: parseInt(step_id),
+                text: text,
+                recipe: {
+                    recipe_id: steps.rows[0].recipe_id,
+                    recipe_name: steps.rows[0].recipe_name,
+                }
+            }
+        };
+
+        res.json(data);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Get single step by step count
+exports.getSingleStepByCount = ('/recipes/:recipe_id/steps/:step_count', async (req, res) => {
+    try {
+        const { recipe_id, step_count } = req.params;
+        const user = req.cookies.user_type;
+
+        let steps;
+        // Checking if user are premium or admin, making sql query acording to Authorization
+        if (user === premium || user === admin) {
+            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1', [recipe_id]);
+        } else {
+            steps = await pool.query('SELECT step_id, step_text, recipe_id, recipe_name FROM recipe JOIN step ON recipe_id = fk_recipe WHERE recipe_id = $1 AND category = $2', [recipe_id, free]);
+        }
+
+        // If step_id > steps.rowCount then step dont exist. id starts at 1, 0 does not exist
+        if (step_count > steps.rowCount || step_count === 0) {
+            res.status(404).json('Step does not exist');
+            return;
+        }
+
+        const text = steps.rows[step_count - 1].step_text.replaceAll('/', ' or ');
+
+        const data = {
+            step: {
+                step_id: steps.rows[step_count - 1].step_id,
+                step_number: parseInt(step_count),
                 text: text,
                 recipe: {
                     recipe_id: steps.rows[0].recipe_id,
