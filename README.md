@@ -83,18 +83,18 @@ You can change the port variable in app.js to change the port if you wish to.
 
 The application will only show results for free recipes to user if the user are not logged in as a premium user or admin
 
-| Name                          | Request type | Endpoint                                           |
-| ----------------------------- | ------------ | -------------------------------------------------- |
-| Get all recipes               | GET          | http://localhost:8080/recipes                      |
-| Get recipe                    | GET          | http://localhost:8080/{recipe_id}                  |
-| Get recipe with all details   | GET          | http://localhost:8080/{recipe_id}/all              |
-| Get single step by step id    | GET          | http://localhost:8080/:recipe_id/{step_id}         |
-| Get single step by step count | GET          | http://localhost:8080/:recipe_id/steps/step_count} |
-| Post login                    | POST         | http://localhost:8080/login                        |
+| Name                          | Request type | Endpoint                                            |
+| ----------------------------- | ------------ | --------------------------------------------------- |
+| Get all recipes               | GET          | http://localhost:8080/recipes                       |
+| Get recipe                    | GET          | http://localhost:8080/{recipe_id}                   |
+| Get recipe with all details   | GET          | http://localhost:8080/{recipe_id}/all               |
+| Get single step by step id    | GET          | http://localhost:8080/:recipe_id/{step_id}          |
+| Get single step by step count | GET          | http://localhost:8080/:recipe_id/steps/{step_count} |
+| Post login                    | POST         | http://localhost:8080/login                         |
 
 #### Get single step by count
 
-To get a single step by count you just provide it with the step number, for example if you want the first step you send a GET request to the `/:recipe_id/steps/step_count}` resource like this: `http://localhost:8080/:1/steps/1` in this example you get the first step for that recipe. The reason I chose this aproach is because it did not make sense to me to make the user find the step id and this aproach is much more user friendly.
+To get a single step by count you just provide it with the step number, for example if you want the first step you send a GET request to the `/:recipe_id/steps/{step_count}` resource like this: `http://localhost:8080/:1/steps/1` in this example you get the first step for that recipe. The reason I chose this aproach is because it did not make sense to me to make the user find the step id and this aproach is much more user friendly.
 
 #### Login example
 
