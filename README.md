@@ -160,7 +160,7 @@ To update a recipe send a PATCH request to the `/recipes/:recipe_id` resource wi
 
 - recipe_name as string
 - category as string must be either `free` or `premium`
-- ingredients as an array of objects with at least one object containing ingredient_name as string and ingredient_category as string
+- ingredients as an array of objects with at least one object containing ingredient_name as string and or ingredient_category as string
 - steps as an array of objects with at least one object containing step_text as string
 
 #### Update recipe example
