@@ -25,9 +25,9 @@ const checkIdIsNumber = (req, res, next) => {
 
     if (checkRecipeId) {
         return res.status(422).json('Please use number');
-    } else {
-        return next();
     }
+
+    return next();
 };
 
 module.exports = { checkIdIsNumber };

@@ -3,7 +3,7 @@ CREATE DATABASE recipes_system;
 CREATE TABLE recipe(
     recipe_id SERIAL PRIMARY KEY,
     recipe_name VARCHAR(255) NOT NULL,
-    category VARCHAR(255) CHECK (category in ('free', 'premium')) NOT NULL
+    category VARCHAR(255) CHECK (category IN ('free', 'premium')) NOT NULL
 );
 
 CREATE TABLE ingredient(

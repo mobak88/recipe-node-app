@@ -67,7 +67,7 @@ exports.getRecipe = ('/recipes/:recipe_id', async (req, res) => {
     }
 });
 
-//Get a recipe with step all details
+//Get a recipe with steps all details
 exports.getAllRecipeDetails = ('/recipes/:recipe_id/all', async (req, res) => {
     try {
         const { recipe_id } = req.params;
