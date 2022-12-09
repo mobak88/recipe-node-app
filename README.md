@@ -1,6 +1,6 @@
 # Recipe system API
 
-CRUD API for recipe system built with expressJS and a Postgres database. The system are using [pg](https://github.com/brianc/node-postgres) as a client to handle database queries. I used postgres because it is the most popular and one of the most well documented relational database management systems. I have also tried my best to follow best practises for [REST API naming conventions](https://restfulapi.net/resource-naming/)
+CRUD API for recipe system built with expressJS and a Postgres database. The system are using [pg](https://github.com/brianc/node-postgres) as a client to handle database queries. I used postgres because it is the most popular and one of the most well documented relational database management systems.
 
 You need psql installed on your machine to run the database and change the password variable in db.js to the password you set when you installed postgres.  
 Download PostgreSQL [Here](https://www.postgresql.org/download/)  
@@ -95,6 +95,7 @@ The application will check if the default recipes exists in the database when yo
 
 ## Endpoints
 
+I have tried my best to follow best practises for [REST API naming conventions](https://restfulapi.net/resource-naming/)
 You can change the port variable in app.js to change the port if you wish to.
 
 ### Available to all users
