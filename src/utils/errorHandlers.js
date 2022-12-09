@@ -20,7 +20,7 @@ exports.checkIdExists = (item, res) => {
  * Returns 400 response status
  * Its not very reusable, it exists to not clutter the controller
 */
-exports.checkPostRecipe = (res, recipe_name, category, ingredients, steps) => {
+exports.checkValidRecipe = (res, recipe_name, category, ingredients, steps) => {
     if (!recipe_name) {
         return res.status(400).send('Recipe name missing');
     }

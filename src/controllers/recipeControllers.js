@@ -194,7 +194,7 @@ exports.postRecipe = ('/recipes', async (req, res) => {
     try {
         const { recipe_name, category, ingredients, steps } = req.body;
 
-        const returnErrStatus = errorHandlers.checkPostRecipe(res, recipe_name, category, ingredients, steps);
+        const returnErrStatus = errorHandlers.checkValidRecipe(res, recipe_name, category, ingredients, steps);
 
         if (returnErrStatus) {
             return;
@@ -303,7 +303,7 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
             return;
         }
 
-        const returnErrStatus = errorHandlers.checkPostRecipe(res, recipe_name, category, ingredients, steps);
+        const returnErrStatus = errorHandlers.checkValidRecipe(res, recipe_name, category, ingredients, steps);
 
         if (returnErrStatus) {
             return;
