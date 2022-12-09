@@ -92,7 +92,7 @@ const updateSTeps = async (steps, recipe_id) => {
         // Executing only if provided steps > steps for recipe in database
         if (newStepsCount > 0) {
             // Creating new step for each step > steps for recipe in database
-            for (let i = allSteps.rowCount; i <= allSteps.rowCount - newStepsCount; i++) {
+            for (let i = allSteps.rowCount; i < allSteps.rowCount + newStepsCount; i++) {
                 if (!steps[i].step_text) {
                     return res.status(400).send('All steps needs step text');
                 }
