@@ -95,7 +95,7 @@ The application will check if the default recipes exists in the database when yo
 
 ## Endpoints
 
-I have tried my best to follow best practises for [REST API naming conventions](https://restfulapi.net/resource-naming/)
+I have tried my best to follow best practises for [REST API naming conventions](https://restfulapi.net/resource-naming/).  
 You can change the port variable in app.js to change the port if you wish to.
 
 ### Available to all users
