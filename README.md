@@ -28,7 +28,7 @@ CREATE DATABASE recipes_system;
 
 ### Conect to a DATABASE
 
-Paste in `\c + DATABASE name` to connect to database. If you copied the database name from the schema paste code below to connext to the database:
+Paste in `\c + recipes_system` to connect to database. If you copied the database name from the schema paste code below to connext to the database:
 
 ```
 \c recipes_system;
