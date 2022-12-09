@@ -296,19 +296,17 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
             [recipe_id]
         );
 
-        const returnErrStatus = errorHandlers.checkIdExists(recipe, res);
+        const returnIdErrStatus = errorHandlers.checkIdExists(recipe, res);
 
         // Returning if error exist
-        if (returnErrStatus) {
+        if (returnIdErrStatus) {
             return;
         }
 
-        if (!recipe_name) {
-            return res.status(400).send('Cant delete recipe name because of relations');
-        }
+        const returnErrStatus = errorHandlers.checkPostRecipe(res, recipe_name, category, ingredients, steps);
 
-        if (!category || category !== free && category !== premium) {
-            return res.status(400).send('Recipe category must be spesified as free or premium');
+        if (returnErrStatus) {
+            return;
         }
 
         await pool.query(
@@ -316,17 +314,9 @@ exports.replaceRecipe = ('/recipes/:recipe_id', async (req, res) => {
             [recipe_name, category, recipe_id]
         );
 
-        const ingredintErr = await replaceIngredients(recipe_id, ingredients);
+        await replaceIngredients(recipe_id, ingredients);
 
-        if (ingredintErr) {
-            return res.status(400).send('All ingredients must have name and category');;
-        }
-
-        const stepErr = await replaceSteps(recipe_id, steps);
-
-        if (stepErr) {
-            return res.status(400).send('All steps needs step text');
-        }
+        await replaceSteps(recipe_id, steps);
 
         res.send(`Recipe with id: ${recipe_id} successfully updated`);
     } catch (err) {
